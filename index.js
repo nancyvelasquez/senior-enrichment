@@ -21,3 +21,4 @@ if (!reasonableName.test(pkg.name)) {
 }
 
 module.exports = pkg
+
