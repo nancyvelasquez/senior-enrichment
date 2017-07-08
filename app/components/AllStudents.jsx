@@ -1,27 +1,29 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import axios from 'axios';
+// import axios from 'axios';
 
-export default class AllStudents extends Component {
+// export default class AllStudents extends Component {
 
-  constructor (props) {
-    super(props);
-    this.state = {
-      students: [ props ]
-    };
-  }
+const AllStudents = (props) => {
 
-  componentDidMount () {
-    axios.get('/api/students/')
-      .then(res => res.data)
-      .then(students => {
-        this.setState({ students })
-      });
-  }
+  // constructor (props) {
+  //   super(props);
+  //   this.state = {
+  //     students: [ props ]
+  //   };
+  // }
 
-  render() {
+  // componentDidMount () {
+  //   axios.get('/api/students/')
+  //     .then(res => res.data)
+  //     .then(students => {
+  //       this.setState({ students })
+  //     });
+  // }
 
-    const students = this.state.students;
+  // render() {
+    console.log(props)
+    const students = props.students;
 
     return (
       <div>
@@ -44,4 +46,5 @@ export default class AllStudents extends Component {
       </div>
     );
   };
-};
+
+  export default AllStudents;

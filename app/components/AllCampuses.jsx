@@ -22,7 +22,6 @@ export default class AllCampuses extends Component {
   render() {
 
     const campuses = this.state.campuses;
-    console.log(campuses)
 
     return (
       <div>
@@ -37,7 +36,6 @@ export default class AllCampuses extends Component {
                     <h5>
                       <span>{ campus.name }</span>
                     </h5>
-                    {/*<small>{ campus.students.length } songs</small>*/}
                   </div>
                 </Link>
               </div>

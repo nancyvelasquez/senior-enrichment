@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import { Route, Link, Switch } from 'react-router-dom';
 import axios from 'axios';
-import Students from './AllStudents';
+import AllStudents from './AllStudents';
+import AllCampuses from './AllCampuses';
 
 export default class SingleCampus extends Component {
 
@@ -12,20 +13,6 @@ export default class SingleCampus extends Component {
       students: []
     };
   }
-
-//   componentDidMount () {
-//     const campusId = this.props.match.params.campusId;
-//     const mainPath = `/api/campuses/${campusId}`;
-//     const paths = [mainPath, `${mainPath}/students`];
-
-//     Bluebird
-//       .map(paths, path => axios.get(path))
-//       .map(res => res.data)
-//       .spread((campus, students) => {
-//         this.setState({ campus, students });
-//         console.log
-//       });
-//   }
 
 componentDidMount () {
     const campusId = this.props.match.params.campusId;
@@ -47,34 +34,29 @@ componentDidMount () {
         })
   }
 
-
-//     axios.get(`/api/campuses/${campusId}`)
-//       .then(res => res.data)
-//       .then(campus => this.setState({
-//         campus
-//       }));
-//   }
-
   render () {
     const campus = this.state.singleCampus;
     const students = this.state.students || [];
 
     return (
-      <div className="campus">
         <div>
-          <h3>{ campus.name }</h3>
-          <p>{}</p>
-          <img src={ campus.imageUrl } className="img-thumbnail" />
-        </div>
-        <ul className="nav nav-tabs">
-          <li><Link to={`/artists/${campus.id}/students`}>STUDENTS</Link></li>
-        </ul>
-        <Switch>
-          <Route path={`/artists/${campus.id}/students`} render={() => (
-            <AllStudents students={ students } />
-          )} />
-        </Switch>      
-    </div>
+            <h3>{ campus.name }</h3>
+            <img src={ campus.imageUrl } className="img-thumbnail" />
+            <p>Number of Students: { students.length }</p>
+
+            <ul className="nav nav-pills nav-justified">
+                <li><Link to={`/campuses/${campus.id}/students`}>LIST OF STUDENTS</Link></li>
+                <li><Link to={`/campuses/`}>BACK TO CAMPUSES</Link></li>
+            </ul>
+            <Switch>
+                <Route path={`/campuses/${campus.id}/students`} render={() => (
+                <AllStudents students={ students } />
+                )} />
+                <Route path={`/campuses`} render={() => (
+                <AllCampuses />
+                )} />
+            </Switch> 
+        </div>     
     );
   }
 }

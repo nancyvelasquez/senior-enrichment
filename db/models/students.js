@@ -20,4 +20,11 @@ module.exports = db.define('student', {
        isEmail: true
     }
   }
+}, {
+      instanceMethods: {
+        toJSON: function () {
+          //Return a shallow clone so toJSON method of the nested models can be called recursively.
+          return Object.assign({}, this.get());
+        }
+      }
 });

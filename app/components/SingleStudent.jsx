@@ -26,11 +26,9 @@ export default class SingleStudent extends Component {
 
     return (
       <div className="student">
-          <h3>{`${student.firstName} ${student.lastName} `}</h3>
-          {/*<ul>
-            <li>Email: {` ${student.email} `}</li>
-            <li>Campus: {`${student.studentCampusId}`}<li>
-          </ul>*/}
+        <h3>{`${student.firstName} ${student.lastName} `}</h3>
+            <p>Email: { student.email }</p>
+            <p>Campus Name: { student.campusId }</p>
       </div>
     );
   }
