@@ -26,7 +26,7 @@ export default class SingleStudent extends Component {
 
     return (
       <div className="student">
-          <h3>{`${student.firstName}, ${student.lastName} `}</h3>
+          <h3>{`${student.firstName} ${student.lastName} `}</h3>
           {/*<ul>
             <li>Email: {` ${student.email} `}</li>
             <li>Campus: {`${student.studentCampusId}`}<li>

@@ -10,7 +10,7 @@ import NotFound from './NotFound';
 import AllCampuses from './AllCampuses';
 import AllStudents from './AllStudents';
 import SingleCampus from './SingleCampus';
-import SingleStudent from './SingleStudent'
+import SingleStudent from './SingleStudent';
 
 // import store from './store'
 // import Root from './components/Root'

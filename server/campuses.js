@@ -9,15 +9,52 @@ module.exports = router;
 router.get('/', (req, res, next) => {
   Campus.findAll()
   .then(campuses => res.json(campuses))
-  .catch(next)
+  .catch(next);
+});
+
+router.param('campusId', function (req, res, next, id) {
+  Campus.findById(id)
+  .then(campus => {
+    if (!campus) {
+      const err = Error('Campus not found');
+      err.status = 404;
+      throw err
+    }
+    req.campus = campus;
+    next();
+    return null; // silences bluebird warning about promises inside of next
+  })
+  .catch(next);
 });
 
 router.get('/:id', (req, res, next) => {
+  // console.log('This is he id campus', req.campus)
+  // res.json(req.campus);
   Campus.findById(req.params.id)
-  .then((foundCampus) => {
-    res.json(foundCampus)
+    .then((foundCampus) => {
+      res.json(foundCampus)
+    })
+  .catch(next);
+});
+
+// router.get('/:id/students', (req, res, next) => {
+//   console.log("Id", req.params.id)
+//   Campus.findById(req.params.id)
+//     .then((foundCampus) => {
+//       res.json(foundCampus.getStudents())
+//       // return foundCampus.getStudents()
+//       // console.log("Hey!", students)
+//       // res.json(students)
+//   })
+//   .catch(next);
+// });
+
+router.get('/:campusId/students', (req, res, next) => {
+  req.campus.getStudents()
+  .then(students => {
+    res.json(students)
   })
-  .catch(next)
+  .catch(next);
 });
 
 router.post('/', function (req, res, next) {
@@ -27,7 +64,7 @@ router.post('/', function (req, res, next) {
         message: 'Created successfully'
       });
     })
-    .catch(next)
+    .catch(next);
 });
 
 //make sure you do find or create at some point
