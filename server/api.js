@@ -2,7 +2,6 @@
 const api = require('express').Router()
 const db = require('../db')
 
-api.get('/', (req, res) => res.sendStatus(200));
 api.use('/campuses', require('./campuses'));
 api.use('/students', require('./students'));
 

@@ -10,9 +10,7 @@ module.exports = db.define('campus', {
     allowNull: false,
   },
   imageURL: {
-    type: Sequelize.VIRTUAL,
-    get: function () {
-      return `/api/campus/${this.id}/image`;
-    }
+    type: Sequelize.STRING,
+    allowNull: false
   }
 });

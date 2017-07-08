@@ -20,11 +20,4 @@ module.exports = db.define('students', {
        isEmail: true
     }
   }
-// }
-// , {
-//     getterMethods: {
-//         fullName: function() {
-//             return `${firstName} ${lastName}`;
-//         }
-//     }
 });
