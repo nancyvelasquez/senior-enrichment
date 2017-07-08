@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
+import { Route, Link, Switch } from 'react-router-dom';
 import axios from 'axios';
-import Students from '../components/AllStudents';
+import Students from './AllStudents';
 
 export default class SingleCampus extends Component {
 
@@ -56,8 +57,7 @@ componentDidMount () {
 
   render () {
     const campus = this.state.singleCampus;
-    const students = this.state.students;
-    console.log('This is the state', this.state.students)
+    const students = this.state.students || [];
 
     return (
       <div className="campus">
@@ -66,8 +66,15 @@ componentDidMount () {
           <p>{}</p>
           <img src={ campus.imageUrl } className="img-thumbnail" />
         </div>
-        {/*<Students students={campus.students} />*/}
-      </div>
+        <ul className="nav nav-tabs">
+          <li><Link to={`/artists/${campus.id}/students`}>STUDENTS</Link></li>
+        </ul>
+        <Switch>
+          <Route path={`/artists/${campus.id}/students`} render={() => (
+            <AllStudents students={ students } />
+          )} />
+        </Switch>      
+    </div>
     );
   }
 }

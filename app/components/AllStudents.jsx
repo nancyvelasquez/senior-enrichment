@@ -4,10 +4,10 @@ import axios from 'axios';
 
 export default class AllStudents extends Component {
 
-  constructor () {
-    super();
+  constructor (props) {
+    super(props);
     this.state = {
-      campuses: []
+      students: [ props ]
     };
   }
 
@@ -22,7 +22,6 @@ export default class AllStudents extends Component {
   render() {
 
     const students = this.state.students;
-    console.log(students)
 
     return (
       <div>
