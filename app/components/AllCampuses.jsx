@@ -23,6 +23,11 @@ const AllCampuses = (props) => {
             ))
           }
         </div>
+        <h4>
+          <Link className="btn btn-primary btn-block" to="/new-campus">
+            <span className="glyphicon glyphicon-plus" /> ADD CAMPUS
+          </Link>
+        </h4>
       </div>
     );
   };

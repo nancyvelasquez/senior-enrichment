@@ -37,6 +37,11 @@ const AllStudents = (props) => {
         };*/}
         </tbody>
       </table>
+      <h4>
+      <Link className="btn btn-primary btn-block" to="/new-student">
+            <span className="glyphicon glyphicon-plus" /> ADD STUDENT
+      </Link>
+      </h4>
     </div>
     );
   };

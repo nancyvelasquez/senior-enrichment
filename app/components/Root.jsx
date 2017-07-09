@@ -13,6 +13,8 @@ import SingleCampus from './SingleCampus';
 import SingleStudent from './SingleStudent';
 import StatefulStudents from './StatefulStudents';
 import StatefulCampuses from './StatefulCampuses';
+import NewStudent from './NewStudent';
+import NewCampus from './NewCampus';
 
 // import store from './store'
 // import Root from './components/Root'
@@ -36,6 +38,8 @@ export default class Main extends Component {
                     <Route path="/campuses/:campusId" component={SingleCampus} />
                     <Route path="/students/:studentId" component={SingleStudent} />
                     <Route exact path="/campuses" component={StatefulCampuses} />
+                    <Route path="/new-student" render={() => <NewStudent addStudent={this.addStudent} />} />
+                    <Route path="/new-campus" render={() => <NewCampus addCampus={this.addCampus} />} />
                     <Route component={NotFound} />
                 </Switch>
             </div>
