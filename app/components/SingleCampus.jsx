@@ -15,7 +15,6 @@ export default class SingleCampus extends Component {
   }
 
 componentDidMount () {
-  console.log(this.props.match.params)
     const campusId = this.props.match.params.campusId;
 
     const getCampus = axios.get(`/api/campuses/${campusId}`)
@@ -40,12 +39,13 @@ componentDidMount () {
     const students = this.state.students || [];
     const imageURL = campus.imageURL;
 
+    console.log(students)
     return (
         <div>
             <h3>{ campus.name }</h3>
+            <button type="reset" value="Reset">Delete Campus</button><br />
             <img src={ imageURL } className="img-thumbnail" />
             <h4>Number of Students: { students.length }</h4>
-            <p>Delete Campus &#10060;</p>
 
             <ul className="nav nav-pills nav-justified">
                 <li><Link to={`/campuses/${campus.id}/students`}>LIST OF STUDENTS</Link></li>

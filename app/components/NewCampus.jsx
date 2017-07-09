@@ -6,47 +6,84 @@ export default class NewCampus extends Component {
   constructor() {
     super();
     this.state = {
-      campusName: '',
-      disabled: true,
+      inputName: '',
+      inputImageURL: '',
       dirty: false
     };
-    this.handleChange = this.handleChange.bind(this);
+    this.handleNameChange = this.handleNameChange.bind(this);
+    this.handleImageChange = this.handleImageChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
-  handleChange(event) {
+
+  handleNameChange(event) {
     this.setState({
-      inputValue: event.target.value,
-      disabled: !(event.target.value.length > 0 && event.target.value.length <= 16),
+      inputName: event.target.value,
       dirty: true
     });
   }
-  handleSubmit(event) {
-    this.props.addPlaylist(this.state.inputValue)
-    event.preventDefault();
+  handleImageChange(event) {
     this.setState({
-      inputValue: '',
-      disabled: true,
+      inputImageURL: event.target.value,
+    });
+  }
+
+  handleSubmit(event) {
+    event.preventDefault();
+
+    const name = this.state.inputName;
+    const imageURL = this.state.inputImageURL;
+
+    axios.post('/api/campuses', {
+      name,
+      imageURL
+    })
+    .then(res => res.data)
+    .then(newCampus => {
+      console.log(newCampus)
+    });
+
+    this.setState({
+      inputName: '',
     });
   }
 
   render() {
+
+    const inputLength = this.state.inputName.length;
+    const tooLong = inputLength > 30;
+    const tooShort = inputLength < 1 && this.state.dirty;
+
+    let warning = tooShort ? "Please enter a campus name" : tooLong ? "Campus name length exceeded" : null;
 
     return (
       <div className="well">
         <form onSubmit={this.handleSubmit} className="form-horizontal">
           <fieldset>
             <legend>Create New Campus</legend>
+            {
+              warning && <div className="alert alert-warning">{ warning }</div>
+            }
             <div className="form-group">
-              <label className="col-xs-2 control-label">Enter Name</label>
-              <div className="col-xs-10">
-                <input value={this.state.inputValue} className="form-control" type="text" onChange={this.handleChange} />
+              <label className="col-xs-2 control-label"></label>
+              <div className="col-xs-8">
+                <input value={this.state.inputName} 
+                className="form-control" 
+                type="text" 
+                onChange={this.handleNameChange} 
+                name="campusName" placeholder="Campus Name"/><br />
+
+                <input value={this.state.inputImageURL} 
+                className="form-control" 
+                type="text" 
+                onChange={this.handleImageChange} 
+                name="imageURL" placeholder="Image URL"/><br />
               </div>
             </div>
             <div className="form-group">
               <div className="col-xs-10 col-xs-offset-2">
-                <button type="submit" className="btn btn-success" disabled={this.state.disabled}>Submit</button>
-                 { this.state.dirty && this.state.disabled ? (this.state.inputValue.length === 0) ? <div className="alert alert-warning">Please enter a name</div> 
-                : <div className="alert alert-warning">Input length exceeded</div> : null }
+                <button type="submit" className="btn btn-success" disabled={this.state.inputName.length < 1 || this.state.inputName.length > 20}>
+                Submit
+                </button>
               </div>
             </div>
           </fieldset>

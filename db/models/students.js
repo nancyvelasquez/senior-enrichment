@@ -2,8 +2,9 @@
 
 var Sequelize = require('sequelize')
 var db = require('../index.js')
+var Campus = require('./campus');
 
-module.exports = db.define('student', {
+const Students = db.define('student', {
   firstName: {
     type: Sequelize.STRING,
     allowNull: false,
@@ -21,11 +22,20 @@ module.exports = db.define('student', {
     }
   }
 }, {
-      classMethods: {
-        associate: function(models) {
-          student.belongsTo(models.Campus);
-        },
+      // classMethods: {
+      //   associate: function(models) {
+      //     student.belongsTo(models.Campus);
+      //   },
+      // },
+  
+      defaultScope: {
+        include: [Campus]
       },
+      getterMethods: {
+        type: function () {
+          return 'student';
+        }
+      }
       // getterMethods: {
       //   campusName: function() {
       //     return this.getCampus().then((campus) => {
@@ -44,3 +54,5 @@ module.exports = db.define('student', {
       //   }
       // }
 });
+
+module.exports = Students;
