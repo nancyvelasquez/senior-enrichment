@@ -20,12 +20,12 @@ module.exports = db.define('student', {
        isEmail: true
     }
   }
-}, 
-      // classMethods: {
-      //   associate: function(models) {
-      //     student.belongsTo(models.Campus, { associations: true });
-      //   },
-      // },
+}, {
+      classMethods: {
+        associate: function(models) {
+          student.belongsTo(models.Campus);
+        },
+      },
       // getterMethods: {
       //   campusName: function() {
       //     return this.getCampus().then((campus) => {
@@ -43,4 +43,4 @@ module.exports = db.define('student', {
       //       .catch(console.error)
       //   }
       // }
-);
+});

@@ -107,6 +107,10 @@ body {
   text-align: center;
 }
 
+tr {
+  text-align: left;
+}
+
 .button {
   padding: 10px 20px;
   background-color: #333;

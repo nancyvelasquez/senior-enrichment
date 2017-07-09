@@ -1,50 +1,46 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-// import axios from 'axios';
-
-// export default class AllStudents extends Component {
 
 const AllStudents = (props) => {
 
-  // constructor (props) {
-  //   super(props);
-  //   this.state = {
-  //     students: [ props ]
-  //   };
-  // }
-
-  // componentDidMount () {
-  //   axios.get('/api/students/')
-  //     .then(res => res.data)
-  //     .then(students => {
-  //       this.setState({ students })
-  //     });
-  // }
-
-  // render() {
-    console.log(props)
     const students = props.students;
 
     return (
       <div>
         <h3>Students</h3>
-        <div className="row">
+        <br></br>
+        <table className='table'>
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Campus</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
           {
             students && students.map(student => (
-              <div className="col-xs-4" key={ student.id }>
-                <Link className="thumbnail" to={`/students/${student.id}`}>
-                  <div className="caption">
-                    <h5>
-                      <span>{ `${student.lastName}, ${student.firstName} `}</span>
-                    </h5>
-                  </div>
-                </Link>
-              </div>
+                <tr key={student.id}>
+                  <Link className="thumbnail" to={`/students/${student.id}`}>
+                  <td>&#10146; { `${student.firstName} ${student.lastName} `}</td>
+                  </Link>
+                  <td>{ student.email }</td>
+                  <td>{ student.campusId }</td>
+                  {/*<td><a onClick={this.onDelete.bind(this, student)} className="delete" href="#">x</a></td>*/}
+                </tr>
             ))
-          }
-        </div>
-      </div>
+          },
+
+        {/*onDelete(student){
+          console.log(student)
+        };*/}
+        </tbody>
+      </table>
+    </div>
     );
   };
 
-  export default AllStudents;
+export default AllStudents;
+
+//  onClick={this.onClickDelete}

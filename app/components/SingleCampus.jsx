@@ -45,6 +45,7 @@ componentDidMount () {
             <h3>{ campus.name }</h3>
             <img src={ imageURL } className="img-thumbnail" />
             <h4>Number of Students: { students.length }</h4>
+            <p>Delete Campus &#10060;</p>
 
             <ul className="nav nav-pills nav-justified">
                 <li><Link to={`/campuses/${campus.id}/students`}>LIST OF STUDENTS</Link></li>

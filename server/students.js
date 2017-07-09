@@ -57,3 +57,17 @@ router.get('/:studentId/campus', (req, res, next) => {
   })
   .catch(next);
 });
+
+router.delete('/:id', (req, res, next) => {
+    return Students.destroy({
+        where: {
+            id: req.params.id
+        }
+    })
+    .then((student) => {
+        if(student) {
+            res.sendStatus(204).redirect('/')
+        } else res.sendStatus(404)
+    })
+    .catch(next)
+})

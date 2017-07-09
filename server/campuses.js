@@ -55,5 +55,20 @@ router.post('/', function (req, res, next) {
     .catch(next);
 });
 
+router.delete('/:id', (req, res, next) => {
+    return Campus.destroy({
+        where: {
+            id: req.params.id
+        }
+    })
+    .then((campus) => {
+        if(campus) {
+            res.sendStatus(204).redirect('/')
+        } else res.sendStatus(404)
+    })
+    .catch(next)
+})
+
+
 //make sure you do find or create at some point
 // need delete

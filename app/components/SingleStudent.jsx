@@ -13,15 +13,6 @@ export default class SingleStudent extends Component {
     };
   }
 
-//   componentDidMount () {
-//     const studentId = this.props.match.params.studentId;
-//     axios.get(`/api/students/${studentId}`)
-//       .then(res => res.data)
-//       .then(student => this.setState({
-//         student
-//       }));
-//   }
-
 componentDidMount () {
     const studentId = this.props.match.params.studentId;
 
