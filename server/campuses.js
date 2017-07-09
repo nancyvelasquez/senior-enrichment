@@ -22,14 +22,12 @@ router.param('campusId', function (req, res, next, id) {
     }
     req.campus = campus;
     next();
-    return null; // silences bluebird warning about promises inside of next
+    return null;
   })
   .catch(next);
 });
 
 router.get('/:id', (req, res, next) => {
-  // console.log('This is he id campus', req.campus)
-  // res.json(req.campus);
   Campus.findById(req.params.id)
     .then((foundCampus) => {
       res.json(foundCampus)
@@ -68,7 +66,6 @@ router.delete('/:id', (req, res, next) => {
     })
     .catch(next)
 })
-
 
 //make sure you do find or create at some point
 // need delete

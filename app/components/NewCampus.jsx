@@ -93,7 +93,7 @@ export default class NewCampus extends Component {
             </div>
             <div className="form-group">
               <div className="col-xs-10 col-xs-offset-2">
-                <button type="submit" className="btn btn-success" disabled={this.state.inputName.length < 1 || this.state.inputName.length > 20 || this.state.inputImageURL.length < 1}>
+                <button type="submit" className="btn btn-success" disabled={this.state.inputName.length < 1 || this.state.inputName.length > 40 || this.state.inputImageURL.length < 1}>
                 Submit
                 </button>
               </div>

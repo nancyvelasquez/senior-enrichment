@@ -29,40 +29,29 @@ export default class NewStudent extends Component {
   }
   
   handleFirstNameChange(event) {
-    this.setState({
-      firstNameValue: event.target.value,
-      dirty: true
-    });
+    this.setState({ firstNameValue: event.target.value, dirty: true });
   }
+
   handleLastNameChange(event) {
-    this.setState({
-      lastNameValue: event.target.value,
-    });
+    this.setState({lastNameValue: event.target.value});
   }
+
   handleEmailChange(event) {
-    this.setState({
-      emailValue: event.target.value,
-    });
+    this.setState({emailValue: event.target.value});
   }
+
   handleCampusChange(event) {
-    this.setState({
-      campusValue: event.target.value,
-    });
+    this.setState({campusValue: event.target.value});
   }
   
   handleSubmit(event) {
     event.preventDefault();
-
-    const firstName = this.state.firstNameValue;
-    const lastName = this.state.lastNameValue;
-    const email = this.state.emailValue;
-    const campusId = this.state.campusValue;
-
+    
     axios.post('/api/students', {
-      firstName,
-      lastName,
-      email,
-      campusId
+      firstName: this.state.firstNameValue,
+      lastName: this.state.lastNameValue,
+      email: this.state.emailValue,
+      campusId: this.state.campusValue
     })
     .then(res => res.data)
     .then(newStudent => {
@@ -80,13 +69,16 @@ export default class NewStudent extends Component {
   render() {
 
     const firstNameValueLength = this.state.firstNameValue.length;
-    const lastNameValueLength = this.state.firstNameValue.length;
+    const lastNameValueLength = this.state.lastNameValue.length;
     const tooLong = firstNameValueLength > 16 || lastNameValueLength > 16;
-    const tooShort = firstNameValueLength < 1|| lastNameValueLength < 1 && this.state.dirty;
+    const tooShort = firstNameValueLength < 1 || lastNameValueLength < 1 && this.state.dirty;
 
-    let warning = tooShort ? "Please enter name(s)" : tooLong ? "Name length exceeded" : null;
-
-    const campuses = this.state.campuses;
+    let warning;
+    if(tooShort) {
+      warning = "Please enter a name";
+    } else if (tooLong) {
+      warning = "Name length exceeded";
+    }
 
     return (
       <div id="form-container">
@@ -104,13 +96,16 @@ export default class NewStudent extends Component {
                   {
                       this.state.campuses.map((campus) => {
                           return (
-                              <option key={campus.id} value={campus.id}>{campus.name}</option>
+                              <option key={campus.id} 
+                              value={campus.id}>
+                              {campus.name}
+                              </option>
                           )}
                       )
                   }
                   </select>
             </div>
-            <button type="submit" className="btn btn-success" disabled={tooLong || tooShort }>Submit</button>
+            <button type="submit" className="btn btn-success" disabled={tooLong || tooShort}>Submit</button>
         </form>
       </div>
     );

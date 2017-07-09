@@ -22,22 +22,14 @@ const AllStudents = (props) => {
           {
             students && students.map(student => (
                 <tr key={student.id}>
-                  {/*<Link className="thumbnail" to={`/students/${student.id}`}>*/}
                   <td>{ `${student.firstName} ${student.lastName} `}</td>
-                  {/*</Link>*/}
                   <td>{ student.email }</td>
                   <td>{ student.campusId }</td>
-                  <Link to={`/students/${student.id}`}>
-                  <td>View Student</td>
-                  </Link>
+                  <td><Link to={`/students/${student.id}`}>View Student</Link></td>
                   {/*<td><a onClick={this.onDelete.bind(this, student)} className="delete" href="#">x</a></td>*/}
                 </tr>
             ))
           },
-
-        {/*onDelete(student){
-          console.log(student)
-        };*/}
         </tbody>
       </table>
       <h4>
