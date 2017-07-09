@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { Link, Switch, Route } from 'react-router-dom';
 import axios from 'axios';
-// import ChosenCampus from './ChosenCampus';
-import CampusSelect from './CampusSelect';
+import ChosenCampus from './ChosenCampus';
+// import CampusSelect from './CampusSelect';
 
 export default class NewStudent extends Component {
   constructor() {
@@ -18,7 +18,7 @@ export default class NewStudent extends Component {
     this.handleFirstNameChange = this.handleFirstNameChange.bind(this);
     this.handleLastNameChange = this.handleLastNameChange.bind(this);
     this.handleEmailChange = this.handleEmailChange.bind(this);
-    // this.handleCampusChange = this.handleCampusChange.bind(this);
+    this.handleCampusChange = this.handleCampusChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
@@ -46,14 +46,11 @@ export default class NewStudent extends Component {
       emailValue: event.target.value,
     });
   }
-  // handleCampusChange(event) {
-  //   this.setState({
-  //     campusValue: event.target.value,
-  //   });
-  // }
-
-  setCampus(campus) {
-    this.setState({ campusValue: campus })
+  handleCampusChange(event) {
+    console.log('Campus ', event.target.value)
+    this.setState({
+      campusValue: event.target.value,
+    });
   }
   
   handleSubmit(event) {
@@ -92,6 +89,8 @@ export default class NewStudent extends Component {
 
     let warning = tooShort ? "Please enter name(s)" : tooLong ? "Name length exceeded" : null;
 
+    const campuses = this.state.campuses;
+
     return (
       <div id="form-container">
         <form onSubmit={this.handleSubmit} className="form-horizontal">
@@ -104,16 +103,16 @@ export default class NewStudent extends Component {
                 <input value={this.state.lastNameValue} className="form-control" type="text" onChange={this.handleLastNameChange} name="lastName" placeholder="Last Name"/><br />
                 <input value={this.state.emailValue} className="form-control" type="text" onChange={this.handleEmailChange} name="email" placeholder="Email"/><br />
                 <h2>Select a Campus: </h2>
-                <CampusSelect campuses={ this.state.campuses } submitAnimal={this.setCampus }/>
-                  {/*<select value={this.state.campusValue} onChange={this.handleCampusChange}>
+                {/*<ChosenCampus campuses={campuses}/>*/}
+                  <select value={this.state.campusValue} onChange={this.handleCampusChange}>
                   {
                       this.state.campuses.map((campus) => {
                           return (
-                              <option key={campus.id} value={campus}>{campus.name}</option>
+                              <option key={campus.id} value={campus.id}>{campus.name}</option>
                           )}
                       )
                   }
-                  </select>*/}
+                  </select>
             </div>
             <button type="submit" className="btn btn-success" disabled={tooLong || tooShort }>Submit</button>
         </form>

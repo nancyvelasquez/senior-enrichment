@@ -1,17 +1,25 @@
 import React, { Component } from 'react';
+// import StatefulCampuses from './StatefulCampuses';
 
 // exporting the constructor function (dumb component).
 // what is the parameter coming in here?
 export default class CampusSelect extends Component {
     constructor(props) {
-            console.log("Campus select ", props)
-
         super(props);
+        console.log('Campus select ', props)
         this.state = {
-            value: ''
+            campuses: ''
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+  }
+
+  componentDidMount () {
+    axios.get('/api/campuses/')
+      .then(res => res.data)
+      .then(campuses => {
+        this.setState({ campuses })
+      });
   }
 
   handleChange(event) {
@@ -25,22 +33,20 @@ export default class CampusSelect extends Component {
   }
 
   render() {
-    const campus = this.props.campus;
+    const campuses = this.state.campuses
 
     return (
         <form onSubmit={this.handleSubmit}>
-            <label>Select a Campus: </label>
-            <select value={this.state.value} onChange={this.handleChange}>
-            {
-                campuses.map((campus) => {
-                    return (
-                        <option key={campus} value={campus}>{campus}</option>
-                    )}
-                )
+        <h2>Select a Campus: </h2>
+        <select value={this.state.campuses} onChange={this.handleChange}>
+            { 
+            campuses.map((campus) => {
+            return (
+                <option key={campus} value={campus}>{campus}</option>
+                )})
             }
-            </select>
-            <input type="submit" value="Submit" />
-            </form>
+        </select>
+        </form>
         );
     }
 };

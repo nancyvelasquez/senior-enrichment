@@ -15,6 +15,8 @@ import StatefulStudents from './StatefulStudents';
 import StatefulCampuses from './StatefulCampuses';
 import NewStudent from './NewStudent';
 import NewCampus from './NewCampus';
+import CampusSelect from './CampusSelect';
+import ChosenCampus from './ChosenCampus';
 
 // import store from './store'
 // import Root from './components/Root'
