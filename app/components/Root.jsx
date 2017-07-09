@@ -11,7 +11,8 @@ import Footer from './Footer';
 import NotFound from './NotFound';
 import SingleCampus from './SingleCampus';
 import SingleStudent from './SingleStudent';
-import StatefulStudents from './StatefulStudents'
+import StatefulStudents from './StatefulStudents';
+import StatefulCampuses from './StatefulCampuses';
 
 // import store from './store'
 // import Root from './components/Root'
@@ -31,10 +32,10 @@ export default class Main extends Component {
             <div className="container text-center">
                 <Switch>
                     <Route exact path="/" component={About} />
-                    <Route exact path="/campuses" component={AllCampuses} />
                     <Route exact path="/students" component={StatefulStudents} />
                     <Route path="/campuses/:campusId" component={SingleCampus} />
                     <Route path="/students/:studentId" component={SingleStudent} />
+                    <Route exact path="/campuses" component={StatefulCampuses} />
                     <Route component={NotFound} />
                 </Switch>
             </div>

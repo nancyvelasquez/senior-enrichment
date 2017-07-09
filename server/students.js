@@ -14,6 +14,21 @@ router.get('/', (req, res, next) => {
   .catch(next)
 });
 
+router.param('studentId', function (req, res, next, id) {
+  Students.findById(id)
+  .then(student => {
+    if (!student) {
+      const err = Error('Student not found');
+      err.status = 404;
+      throw err
+    }
+    req.student = student;
+    next();
+    return null; // silences bluebird warning about promises inside of next
+  })
+  .catch(next);
+});
+
 router.post('/', function (req, res, next) {
   Students.create(req.body)
     .then((newStudent) => {
@@ -34,3 +49,11 @@ router.get('/:id', (req, res, next) => {
 
 //make sure you do find or create at some point
 // need delete
+
+router.get('/:studentId/campus', (req, res, next) => {
+  req.student.getCampus()
+  .then(campus => {
+    res.json(campus)
+  })
+  .catch(next);
+});

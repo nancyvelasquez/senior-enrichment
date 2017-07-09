@@ -20,11 +20,27 @@ module.exports = db.define('student', {
        isEmail: true
     }
   }
-}, {
-      instanceMethods: {
-        toJSON: function () {
-          //Return a shallow clone so toJSON method of the nested models can be called recursively.
-          return Object.assign({}, this.get());
-        }
-      }
-});
+}, 
+      // classMethods: {
+      //   associate: function(models) {
+      //     student.belongsTo(models.Campus, { associations: true });
+      //   },
+      // },
+      // getterMethods: {
+      //   campusName: function() {
+      //     return this.getCampus().then((campus) => {
+      //       console.log(campus)
+      //       return campus.campusName;
+      //     })
+      //   }
+      
+      // instanceMethods: {
+      //   getCampus: function() {
+      //   return db.models('students').findOne({ 
+      //     include: [{ 
+      //       model: db.models('campus') }] }) // Notice `include` takes an ARRAY
+      //       .then(campus => console.log(campus))
+      //       .catch(console.error)
+      //   }
+      // }
+);

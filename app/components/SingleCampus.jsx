@@ -15,6 +15,7 @@ export default class SingleCampus extends Component {
   }
 
 componentDidMount () {
+  console.log(this.props.match.params)
     const campusId = this.props.match.params.campusId;
 
     const getCampus = axios.get(`/api/campuses/${campusId}`)
@@ -37,12 +38,13 @@ componentDidMount () {
   render () {
     const campus = this.state.singleCampus;
     const students = this.state.students || [];
+    const imageURL = campus.imageURL;
 
     return (
         <div>
             <h3>{ campus.name }</h3>
-            <img src={ campus.imageUrl } className="img-thumbnail" />
-            <p>Number of Students: { students.length }</p>
+            <img src={ imageURL } className="img-thumbnail" />
+            <h4>Number of Students: { students.length }</h4>
 
             <ul className="nav nav-pills nav-justified">
                 <li><Link to={`/campuses/${campus.id}/students`}>LIST OF STUDENTS</Link></li>
@@ -52,9 +54,7 @@ componentDidMount () {
                 <Route path={`/campuses/${campus.id}/students`} render={() => (
                 <AllStudents students={ students } />
                 )} />
-                <Route path={`/campuses`} render={() => (
-                <AllCampuses />
-                )} />
+                <Route path={`/campuses`} />
             </Switch> 
         </div>     
     );

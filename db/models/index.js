@@ -15,7 +15,8 @@ var Sequelize = require('sequelize');
 const Students = require('./students')
 const Campus = require('./campus')
 
-Students.belongsTo(Campus)
+Students.belongsTo(Campus);
+Campus.hasMany(Students);
 
 module.exports = { Students, Campus };
 

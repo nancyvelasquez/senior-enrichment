@@ -37,18 +37,6 @@ router.get('/:id', (req, res, next) => {
   .catch(next);
 });
 
-// router.get('/:id/students', (req, res, next) => {
-//   console.log("Id", req.params.id)
-//   Campus.findById(req.params.id)
-//     .then((foundCampus) => {
-//       res.json(foundCampus.getStudents())
-//       // return foundCampus.getStudents()
-//       // console.log("Hey!", students)
-//       // res.json(students)
-//   })
-//   .catch(next);
-// });
-
 router.get('/:campusId/students', (req, res, next) => {
   req.campus.getStudents()
   .then(students => {
