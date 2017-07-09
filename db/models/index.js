@@ -8,9 +8,6 @@
 	// will have to change every time it is required everywhere
 
 var Sequelize = require('sequelize');
-// var db = new Sequelize('postgres://localhost:5432/school_de_nancy', {
-//   logging: false
-// });
 
 const Students = require('./students')
 const Campus = require('./campus')
