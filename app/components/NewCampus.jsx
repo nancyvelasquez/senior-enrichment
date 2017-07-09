@@ -8,7 +8,8 @@ export default class NewCampus extends Component {
     this.state = {
       inputName: '',
       inputImageURL: '',
-      dirty: false
+      nameInputDirty: false,
+      imageInputDirty: false
     };
     this.handleNameChange = this.handleNameChange.bind(this);
     this.handleImageChange = this.handleImageChange.bind(this);
@@ -18,12 +19,13 @@ export default class NewCampus extends Component {
   handleNameChange(event) {
     this.setState({
       inputName: event.target.value,
-      dirty: true
+      nameInputDirty: true
     });
   }
   handleImageChange(event) {
     this.setState({
       inputImageURL: event.target.value,
+      imageInputDirty: true,
     });
   }
 
@@ -38,22 +40,29 @@ export default class NewCampus extends Component {
       imageURL
     })
     .then(res => res.data)
-    .then(newCampus => {
-      console.log(newCampus)
-    });
+    .then({});
 
     this.setState({
       inputName: '',
+      inputImageURL: '',
+      nameInputDirty: false,
+      imageInputDirty: false
     });
   }
 
   render() {
 
     const inputLength = this.state.inputName.length;
-    const tooLong = inputLength > 30;
-    const tooShort = inputLength < 1 && this.state.dirty;
+    const tooLong = inputLength > 40;
+    const tooShort = inputLength < 1 && this.state.nameInputDirty;
+    const noImage = this.state.inputImageURL.length < 1 && this.state.imageInputDirty;
 
-    let warning = tooShort ? "Please enter a campus name" : tooLong ? "Campus name length exceeded" : null;
+    let warning;
+    if(tooShort) {
+      warning = "Please enter a campus name";
+    } else if (tooLong) {
+      warning = "Campus name length exceeded";
+    }
 
     return (
       <div className="well">
@@ -62,6 +71,9 @@ export default class NewCampus extends Component {
             <legend>Create New Campus</legend>
             {
               warning && <div className="alert alert-warning">{ warning }</div>
+            }
+            {
+              noImage && <div className="alert alert-warning">Please add an image URL</div>
             }
             <div className="form-group">
               <label className="col-xs-2 control-label"></label>
@@ -81,7 +93,7 @@ export default class NewCampus extends Component {
             </div>
             <div className="form-group">
               <div className="col-xs-10 col-xs-offset-2">
-                <button type="submit" className="btn btn-success" disabled={this.state.inputName.length < 1 || this.state.inputName.length > 20}>
+                <button type="submit" className="btn btn-success" disabled={this.state.inputName.length < 1 || this.state.inputName.length > 20 || this.state.inputImageURL.length < 1}>
                 Submit
                 </button>
               </div>
