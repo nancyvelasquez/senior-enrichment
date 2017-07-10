@@ -21,6 +21,19 @@ import NewCampus from './NewCampus';
 
 export default class Main extends Component {
 
+// addStudent(student) {
+//   axios.post('/api/students', {
+//       firstName,
+//       lastName,
+//       email,
+//       campusId
+//   })
+//   //   .then(res => res.data)
+//   //   .then(newStudent => {
+//   //     console.log(newStudent)
+//   // });
+// }
+
   render () {
     return (
       <Router>
@@ -38,8 +51,12 @@ export default class Main extends Component {
                     <Route path="/campuses/:campusId" component={SingleCampus} />
                     <Route path="/students/:studentId" component={SingleStudent} />
                     <Route exact path="/campuses" component={StatefulCampuses} />
-                    <Route exact path="/new-student" render={() => <NewStudent addStudent={this.addStudent} />} />
-                    <Route exact path="/new-campus" render={() => <NewCampus addCampus={this.addCampus} />} />
+                    <Route exact path="/new-student" render={
+                      () => <NewStudent addStudent={this.addStudent} />
+                    } />
+                    <Route exact path="/new-campus" render={
+                      () => <NewCampus addCampus={this.addCampus} />
+                    } />
                     <Route component={NotFound} />
                 </Switch>
             </div>

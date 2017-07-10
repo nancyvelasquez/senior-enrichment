@@ -4,8 +4,8 @@ import AllStudents from './AllStudents';
 
 export default class StatefulStudents extends Component {
 
-  constructor () {
-    super();
+  constructor (props) {
+    super(props);
     this.state = {
       students: []
     };

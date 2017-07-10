@@ -46,6 +46,13 @@ export default class NewStudent extends Component {
   
   handleSubmit(event) {
     event.preventDefault();
+
+    // const firstName = this.state.firstNameValue,
+    // const lastName = this.state.lastNameValue,
+    // const email = this.state.emailValue,
+    // const campusId = this.state.campusValue
+
+    // this.props.addStudent([firstName, lastName, email, campusId])
     
     axios.post('/api/students', {
       firstName: this.state.firstNameValue,

@@ -12,6 +12,7 @@ export default class SingleCampus extends Component {
       singleCampus: {},
       students: []
     };
+    this.handleDelete = this.handleDelete.bind(this);
   }
 
 componentDidMount () {
@@ -34,6 +35,14 @@ componentDidMount () {
         })
   }
 
+handleDelete(event) {
+  event.preventDefault();
+  const id = this.state.singleCampus.id;
+
+    axios.delete(`/api/campuses/${id}`)
+    // .then(res => res.redirect('/campuses'))
+}
+
   render () {
     const campus = this.state.singleCampus;
     const students = this.state.students || [];
@@ -43,7 +52,8 @@ componentDidMount () {
     return (
         <div>
             <h3>{ campus.name }</h3>
-            <button type="reset" value="Reset">Delete Campus</button><br />
+            <button onClick={this.handleDelete} type="reset" value="Reset">Delete Campus</button><br />
+
             <img src={ imageURL } className="img-thumbnail" />
             <h4>Number of Students: { students.length }</h4>
 

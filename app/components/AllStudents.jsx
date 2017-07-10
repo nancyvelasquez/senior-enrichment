@@ -1,9 +1,16 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+import axios from 'axios';
 
 const AllStudents = (props) => {
 
-    const students = props.students;
+  const students = props.students;
+
+  // const handleDelete = function(id) {
+  //   console.log(id)
+  //   return axios.delete(`/api/students/${id}`)
+  //     // .then(res => res.redirect('/campuses'))
+  // }
 
     return (
       <div>
@@ -26,7 +33,7 @@ const AllStudents = (props) => {
                   <td>{ student.email }</td>
                   <td>{ student.campusId }</td>
                   <td><Link to={`/students/${student.id}`}>View Student</Link></td>
-                  {/*<td><a onClick={this.onDelete.bind(this, student)} className="delete" href="#">x</a></td>*/}
+                  {/*<td><a onClick={handleDelete(student.id)} className="delete" href="#">x</a></td>*/}
                 </tr>
             ))
           },
@@ -42,5 +49,3 @@ const AllStudents = (props) => {
   };
 
 export default AllStudents;
-
-//  onClick={this.onClickDelete}

@@ -9,7 +9,8 @@ export default class NewCampus extends Component {
       inputName: '',
       inputImageURL: '',
       nameInputDirty: false,
-      imageInputDirty: false
+      imageInputDirty: false,
+      redirectToNewPage: false
     };
     this.handleNameChange = this.handleNameChange.bind(this);
     this.handleImageChange = this.handleImageChange.bind(this);
@@ -40,13 +41,13 @@ export default class NewCampus extends Component {
       imageURL
     })
     .then(res => res.data)
-    .then({});
 
     this.setState({
       inputName: '',
       inputImageURL: '',
       nameInputDirty: false,
-      imageInputDirty: false
+      imageInputDirty: false,
+      redirectToNewPage: false
     });
   }
 
@@ -63,7 +64,7 @@ export default class NewCampus extends Component {
     } else if (tooLong) {
       warning = "Campus name length exceeded";
     }
-
+    
     return (
       <div className="well">
         <form onSubmit={this.handleSubmit} className="form-horizontal">
@@ -104,3 +105,4 @@ export default class NewCampus extends Component {
     );
   }
 }
+

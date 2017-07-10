@@ -44,13 +44,27 @@ router.get('/:campusId/students', (req, res, next) => {
 });
 
 router.post('/', function (req, res, next) {
-  Campus.create(req.body)
-    .then((newCampus) => {
-      res.json({
-        message: 'Created successfully'
-      });
-    })
-    .catch(next);
+//   console.log(req.body)
+//   Campus.create(req.body)
+//     .then((newCampus) => {
+//       res.json({
+//         message: 'Created successfully'
+//       });
+//     })
+//     .catch(next);
+// });
+
+ Campus.findOrCreate({
+   where: {
+     name: req.body.name,
+     imageURL: req.body.imageURL
+   }
+  })
+  .spread((campus, created) => {
+    console.log("Find or create", campus, created)
+    // return Campus.create(req.body)
+  })
+  .catch(next);
 });
 
 router.delete('/:id', (req, res, next) => {

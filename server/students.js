@@ -71,3 +71,9 @@ router.delete('/:id', (req, res, next) => {
     })
     .catch(next)
 })
+
+// router.delete('/:playlistId', function (req, res, next) {
+//   req.playlist.destroy()
+//   .then(() => res.status(204).end())
+//   .catch(next);
+// });
