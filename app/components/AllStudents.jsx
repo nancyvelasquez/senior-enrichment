@@ -5,7 +5,6 @@ import axios from 'axios';
 const AllStudents = (props) => {
 
   const students = props.students;
-
   // const handleDelete = function(id) {
   //   console.log(id)
   //   return axios.delete(`/api/students/${id}`)
@@ -31,7 +30,7 @@ const AllStudents = (props) => {
                 <tr key={student.id}>
                   <td>{ `${student.firstName} ${student.lastName} `}</td>
                   <td>{ student.email }</td>
-                  <td>{ student.campusId }</td>
+                  <td>{ student.getCampus }</td>
                   <td><Link to={`/students/${student.id}`}>View Student</Link></td>
                   {/*<td><a onClick={handleDelete(student.id)} className="delete" href="#">x</a></td>*/}
                 </tr>

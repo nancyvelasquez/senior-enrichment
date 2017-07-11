@@ -28,29 +28,23 @@ const Students = db.define('student', {
       //   },
       // },
   
-      defaultScope: {
-        include: [Campus]
-      },
-      getterMethods: {
-        type: function () {
-          return 'student';
-        }
-      }
-      // getterMethods: {
-      //   campusName: function() {
-      //     return this.getCampus().then((campus) => {
-      //       console.log(campus)
-      //       return campus.campusName;
-      //     })
-      //   }
+      // defaultScope: {
+      //   include: [Campus]
+      // },
+
+      // // getterMethods: {
+      // //   campusName: function() {
+      // //     return this.getCampus().then((campus) => {
+      // //       console.log(campus)
+      // //       return campus.campusName;
+      // //     })
+      // //   }
       
       // instanceMethods: {
       //   getCampus: function() {
-      //   return db.models('students').findOne({ 
-      //     include: [{ 
-      //       model: db.models('campus') }] }) // Notice `include` takes an ARRAY
-      //       .then(campus => console.log(campus))
-      //       .catch(console.error)
+      //     return db.models('campus').findOne({ 
+      //       where: { id: this.campusId}
+      //     })
       //   }
       // }
 });

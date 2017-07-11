@@ -58,6 +58,20 @@ router.get('/:studentId/campus', (req, res, next) => {
   .catch(next);
 });
 
+router.put('/:id', function (req, res, next) {
+  Students.update(req.body, {
+    where: {id: req.params.id},
+    returning: true
+  })
+  .then(function (results) {
+    console.log(results)
+    res.json({
+      message: 'Updated successfully',
+    });
+  })
+  .catch(next);
+});
+
 router.delete('/:id', (req, res, next) => {
     return Students.destroy({
         where: {
@@ -71,9 +85,3 @@ router.delete('/:id', (req, res, next) => {
     })
     .catch(next)
 })
-
-// router.delete('/:playlistId', function (req, res, next) {
-//   req.playlist.destroy()
-//   .then(() => res.status(204).end())
-//   .catch(next);
-// });

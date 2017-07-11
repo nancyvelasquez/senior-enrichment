@@ -15,26 +15,25 @@ import StatefulStudents from './StatefulStudents';
 import StatefulCampuses from './StatefulCampuses';
 import NewStudent from './NewStudent';
 import NewCampus from './NewCampus';
+import store, { GOT_CAMPUSES_FROM_SERVER } from '.././store';
 
-// import store from './store'
-// import Root from './components/Root'
+// import { connect } from "react-redux";
 
+// import store from './store'   // importing store for redux
+// // import Root from './components/Root'
+
+
+// const RootContainer = connect or Provider ... 'react-redux' instead of export the
+// original main component, 
+// const RootContainer = connect((state) => ({pets: state.pets }))(Main)
+// export default RootContainer
+
+// export default 
 export default class Main extends Component {
 
-// addStudent(student) {
-//   axios.post('/api/students', {
-//       firstName,
-//       lastName,
-//       email,
-//       campusId
-//   })
-//   //   .then(res => res.data)
-//   //   .then(newStudent => {
-//   //     console.log(newStudent)
-//   // });
-// }
-
   render () {
+
+    console.log("We are here ", this.state)
     return (
       <Router>
         <div id="main" className="container-text-center">
@@ -69,3 +68,13 @@ export default class Main extends Component {
     );
   }
 }
+
+// const mapStateToProps = storeState => ({
+//   students: storeState.students
+// });
+
+// const mapDispatchToProps = dispatch => ({
+//   loadAllStudents: () => dispatch(loadStudents())
+// });
+
+// export default connect(mapStateToProps, mapDispatchToProps)(Root);

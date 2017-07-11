@@ -3,6 +3,7 @@ import { Route, Link, Switch } from 'react-router-dom';
 import axios from 'axios';
 import AllStudents from './AllStudents';
 import AllCampuses from './AllCampuses';
+// import store, { gotStudents } from '.././reducers/index.js'
 
 export default class SingleCampus extends Component {
 
@@ -10,12 +11,17 @@ export default class SingleCampus extends Component {
     super(props);
     this.state = {
       singleCampus: {},
-      students: []
+      students: []  // store.getState();
     };
     this.handleDelete = this.handleDelete.bind(this);
   }
 
 componentDidMount () {
+
+    // this.unsubscribe = store.subscribe( () => {
+    //   this.setState(store.getState())
+    // })
+
     const campusId = this.props.match.params.campusId;
 
     const getCampus = axios.get(`/api/campuses/${campusId}`)
@@ -27,13 +33,20 @@ componentDidMount () {
     const getStudents = axios.get(`/api/campuses/${campusId}/students`)
       .then(res => res.data)
       .then(students => {
-        this.setState({ students: students })
+        this.setState({ students: students })  
+        // replace with
+        // const gotStudents = gotStudents(students)
+        // store.dispatch(gotStudents);
       })
 
     Promise.all([getCampus, getStudents])
         .then(() => {
         })
   }
+
+componentWillUnMount() {
+  this.unsubscribe();
+}
 
 handleDelete(event) {
   event.preventDefault();
@@ -44,11 +57,13 @@ handleDelete(event) {
 }
 
   render () {
+
     const campus = this.state.singleCampus;
     const students = this.state.students || [];
     const imageURL = campus.imageURL;
 
-    console.log(students)
+    console.log('This campus ', campus.getStudents)
+
     return (
         <div>
             <h3>{ campus.name }</h3>

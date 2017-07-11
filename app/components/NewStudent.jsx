@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { Link, Switch, Route } from 'react-router-dom';
 import axios from 'axios';
+// import store, { newStudent } from file
+// import thunkMiddleware from 'redux-thunk;  // make sure you add thunk
 
 export default class NewStudent extends Component {
   constructor() {
@@ -12,6 +14,7 @@ export default class NewStudent extends Component {
       campusValue: 0,
       dirty: false,
       campuses: []
+      // this.state = store.getState();
     };
     this.handleFirstNameChange = this.handleFirstNameChange.bind(this);
     this.handleLastNameChange = this.handleLastNameChange.bind(this);
@@ -21,15 +24,25 @@ export default class NewStudent extends Component {
   }
 
   componentDidMount () {
+
+    // this.unsubscribe = store.subscribe{() => this.setState(store.getState()))}
+
     axios.get('/api/campuses/')
       .then(res => res.data)
       .then(campuses => {
         this.setState({ campuses })
       });
   }
+
+  // componentWillUnMount() {
+  //   this.unsubscribe();
+  // }
   
   handleFirstNameChange(event) {
     this.setState({ firstNameValue: event.target.value, dirty: true });
+
+    // const action = newStudent(inputValue);
+    // store.dispatch(action); 
   }
 
   handleLastNameChange(event) {
