@@ -6,6 +6,7 @@ import thunkMiddleware from 'redux-thunk'; // https://github.com/gaearon/redux-t
 
 const GET_CAMPUSES = "GET_CAMPUSES";
 const GET_STUDENTS = "GET_STUDENTS";
+const ENTER_NEW_CAMPUS = "ENTER_NEW_CAMPUS"
 
 //Action Creators
 
@@ -25,12 +26,18 @@ export function getStudents (students) {
     return action;
 }
 
+export function enterNewCampus (campus) {
+    const action = {
+        type: ENTER_NEW_CAMPUS,
+        campus
+    };
+    return action;
+}
+
 //initial state
 const initialState = {
     campuses: [],
     students: [],
-    // student: {},
-    // campus: {}
 }
 
 //Thunk
@@ -57,6 +64,21 @@ export function fetchStudents() {
   };
 }
 
+export function postCampus() {
+    return function thunk(dispatch) {
+        return axios.post('/api/campuses', {
+            name,
+            imageURL
+        })
+        .then(res => res.data)
+        .then(campus => {
+            const action = enterNewCampus(campus)
+            dispatch(action)
+        })
+    }
+}
+
+
 // Reducer
 function reducer (state = initialState, action) { // NOTE TRY ...ARRAY IF ARRAY
     switch (action.type) {
@@ -64,6 +86,8 @@ function reducer (state = initialState, action) { // NOTE TRY ...ARRAY IF ARRAY
             return Object.assign({}, state, { campuses: action.campuses });
         case GET_STUDENTS: 
             return Object.assign({}, state, { students: action.students });
+        case ENTER_NEW_CAMPUS:
+            return Object.assign({}, state, { campusus: action.campus });
         default: 
             return state;
     }
@@ -77,7 +101,7 @@ const store = createStore(reducer,
 export default store;
 
 
-
+//////////////////////////
 
 
 
@@ -92,7 +116,7 @@ export default store;
 // const GET_CAMPUSES = "GET_CAMPUSES";
 // const GET_STUDENTS = "GET_STUDENTS";
 // // const DELETE_STUDENT = "DELETE_STUDENT"
-// // const DELETE_CAMPUS = "DELETE_CAMPUS";
+// const DELETE_CAMPUS = "DELETE_CAMPUS";
 // //Action Creators
 
 // export function getCampuses (campuses) {
@@ -171,13 +195,16 @@ export default store;
 
 // // export function destroyCampus(campus) {
 // //   return function thunk(dispatch) {
-// //     return axios.delete(`/api/students/${id}`)
+// //     return axios.delete(`/api/campuses/${id}`)
 // //     .then(res => res.data)
 // //     .then(campus => {
 // //         const action = deleteCampus(campus)
 // //         dispatch(action)
 // //       });
 // //   };
+// //}
+
+
 
 // // Reducer
 // function reducer (state = initialState, action) { // NOTE TRY ...ARRAY IF ARRAY
@@ -187,14 +214,12 @@ export default store;
 //         case GET_STUDENTS: 
 //             return Object.assign({}, state, { students: action.students });
 //         // case DELETE_CAMPUS:
-//         //     return state.campuses.filter(({id}) => id !== action.data);
+//         //     let state.campuses = state.campuses.filter(({id}) => id !== action.data);
+//         //     return state.campuses
 //         default: 
 //             return state;
 //     }
 // }
-
-// // case 'DELETE_COMMENT':
-// //   return state.filter(({ id }) => id !== action.data);
 
 
 // //STORE 

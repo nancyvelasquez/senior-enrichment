@@ -53,7 +53,7 @@ export default class Main extends Component {
                       () => <NewStudent addStudent={this.addStudent} />
                     } />
                     <Route exact path="/new-campus" render={
-                      () => <NewCampus addCampus={this.addCampus} />
+                      () => <NewCampus component={NewCampus}/> // addCampus={this.addCampus}
                     } />
                     <Route component={NotFound} />
                     <Redirect to="/" />
