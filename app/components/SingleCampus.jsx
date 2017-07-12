@@ -33,6 +33,7 @@ const SingleCampus = (props) => {
 
 const mapStateToProps = (state, ownProps) => {
   const campusId = ownProps.match.params.campusId;
+  console.log('campus id', campusId)
 
   return {
     campus: state.campuses.find(campus => campus.id === +campusId),
@@ -40,6 +41,19 @@ const mapStateToProps = (state, ownProps) => {
   }
 }
 
-export default connect(mapStateToProps)(SingleCampus);
 
+
+// const mapDispatchToProps = function (dispatch, ownProps) {
+//   return {
+//     handleDelete: function (evt) {
+//       dispatch(deleteCampus(evt.target.value));
+//     },
+//     handleSubmit: function (evt) {
+//       evt.preventDefault();
+//       dispatch(destroyCampus({ name: evt.target.campusName.value }))
+//     }
+//   };
+// }
+
+export default connect(mapStateToProps)(SingleCampus);
 

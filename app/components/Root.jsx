@@ -68,13 +68,3 @@ export default class Main extends Component {
     );
   }
 }
-
-// const mapStateToProps = storeState => ({
-//   students: storeState.students
-// });
-
-// const mapDispatchToProps = dispatch => ({
-//   loadAllStudents: () => dispatch(loadStudents())
-// });
-
-// export default connect(mapStateToProps, mapDispatchToProps)(Root);
