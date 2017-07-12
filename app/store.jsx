@@ -6,8 +6,6 @@ import thunkMiddleware from 'redux-thunk'; // https://github.com/gaearon/redux-t
 
 const GET_CAMPUSES = "GET_CAMPUSES";
 const GET_STUDENTS = "GET_STUDENTS";
-const GET_STUDENT = "GET_STUDENT"
-const GET_CAMPUS = "GET_CAMPUS"
 
 //Action Creators
 
@@ -30,7 +28,9 @@ export function getStudents (students) {
 //initial state
 const initialState = {
     campuses: [],
-    students: []
+    students: [],
+    // student: {},
+    // campus: {}
 }
 
 //Thunk

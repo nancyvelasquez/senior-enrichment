@@ -1,73 +1,78 @@
 import React, { Component } from 'react';
 import { Route, Link, Switch } from 'react-router-dom';
-import axios from 'axios';
-import AllStudents from './AllStudents';
-import AllCampuses from './AllCampuses';
+import { connect } from "react-redux";
+import { fetchCampuses, fetchStudents } from '../store';
+
+// import AllStudents from './AllStudents';
+// import AllCampuses from './AllCampuses';
 // import store, { gotStudents } from '.././reducers/index.js'
 
-export default class SingleCampus extends Component {
 
-  constructor (props) {
-    super(props);
-    this.state = {
-      singleCampus: {},
-      students: []  // store.getState();
-    };
-    this.handleDelete = this.handleDelete.bind(this);
-  }
+const SingleCampus = (props) => {
 
-componentDidMount () {
+  const { campus } = props;
+
+// export default class SingleCampus extends Component {
+
+//   constructor (props) {
+//     super(props);
+//     this.state = {
+//       singleCampus: {},
+//       students: []  // store.getState();
+//     };
+//     this.handleDelete = this.handleDelete.bind(this);
+//   }
+
+// componentDidMount () {
 
     // this.unsubscribe = store.subscribe( () => {
     //   this.setState(store.getState())
     // })
 
-    const campusId = this.props.match.params.campusId;
+  //   const campusId = this.props.match.params.campusId;
 
-    const getCampus = axios.get(`/api/campuses/${campusId}`)
-      .then(res => res.data)
-      .then(campus => {
-        this.setState({ singleCampus: campus })
-      })
+  //   const getCampus = axios.get(`/api/campuses/${campusId}`)
+  //     .then(res => res.data)
+  //     .then(campus => {
+  //       this.setState({ singleCampus: campus })
+  //     })
 
-    const getStudents = axios.get(`/api/campuses/${campusId}/students`)
-      .then(res => res.data)
-      .then(students => {
-        this.setState({ students: students })  
-        // replace with
-        // const gotStudents = gotStudents(students)
-        // store.dispatch(gotStudents);
-      })
+  //   const getStudents = axios.get(`/api/campuses/${campusId}/students`)
+  //     .then(res => res.data)
+  //     .then(students => {
+  //       this.setState({ students: students })  
+  //       // replace with
+  //       // const gotStudents = gotStudents(students)
+  //       // store.dispatch(gotStudents);
+  //     })
 
-    Promise.all([getCampus, getStudents])
-        .then(() => {
-        })
-  }
+  //   Promise.all([getCampus, getStudents])
+  //       .then(() => {
+  //       })
+  // }
 
-componentWillUnMount() {
-  this.unsubscribe();
-}
+// componentWillUnMount() {
+//   this.unsubscribe();
+// }
 
-handleDelete(event) {
-  event.preventDefault();
-  const id = this.state.singleCampus.id;
+// handleDelete(event) {
+//   event.preventDefault();
+//   const id = this.state.singleCampus.id;
 
-    axios.delete(`/api/campuses/${id}`)
-    // .then(res => res.redirect('/campuses'))
-}
+//     axios.delete(`/api/campuses/${id}`)
+//     // .then(res => res.redirect('/campuses'))
+// }
 
-  render () {
+  // render () {
 
-    const campus = this.state.singleCampus;
-    const students = this.state.students || [];
-    const imageURL = campus.imageURL;
-
-    console.log('This campus ', campus.getStudents)
+    // const campus = this.state.singleCampus;
+    // const students = this.state.students || [];
+    // const imageURL = campus.imageURL;
 
     return (
         <div>
             <h3>{ campus.name }</h3>
-            <button onClick={this.handleDelete} type="reset" value="Reset">Delete Campus</button><br />
+            {/*<button onClick={this.handleDelete} type="reset" value="Reset">Delete Campus</button><br />
 
             <img src={ imageURL } className="img-thumbnail" />
             <h4>Number of Students: { students.length }</h4>
@@ -81,8 +86,20 @@ handleDelete(event) {
                 <AllStudents students={ students } />
                 )} />
                 <Route path={`/campuses`} />
-            </Switch> 
+            </Switch> */}
         </div>     
     );
+  // }
+}
+
+const mapStateToProps = (state, ownProps) => {
+ 
+  const campusId = ownProps.match.params.campusId;
+
+  return {
+    campus: state.campuses.find(campus => campus.id === +campusId),
+    // campus: state.campuses.find(campus => campus.id === student.campusId)
   }
 }
+
+export default connect(mapStateToProps)(SingleCampus);
