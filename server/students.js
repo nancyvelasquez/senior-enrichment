@@ -78,10 +78,5 @@ router.delete('/:id', (req, res, next) => {
             id: req.params.id
         }
     })
-    .then((student) => {
-        if(student) {
-            res.sendStatus(204).redirect('/')
-        } else res.sendStatus(404)
-    })
     .catch(next)
 })

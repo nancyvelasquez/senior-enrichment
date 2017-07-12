@@ -1,22 +1,17 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-// import axios from 'axios';
-import { deleteStudent, destroyStudent } from '../store';
+import { deleteStudent, removeStudent } from '../store';
+import { connect } from "react-redux";
 
 
 const AllStudents = (props) => {
 
-  const { students, campuses } = props;
+  const { students, campuses, handleDelete } = props;
   
   const studentCampusName = (studentCampusId) => {
       const findCampus = campuses.find(campus => campus.id === studentCampusId);
       return findCampus.name
   }
-
-const handleDelete = function(id) {
-  return axios.delete(`/api/students/${id}`)
-  .then(res => res.redirect('/campuses'))
-}
 
     return (
       <div>
@@ -39,7 +34,11 @@ const handleDelete = function(id) {
                   <td>{ student.email }</td>
                    <td>{ student.campusId ? studentCampusName(student.campusId) : 'No Campus Assigned' }</td> 
                   <td><Link to={`/students/${student.id}`}>View Student</Link></td>
-                  {/* <td><a onClick={this.handleDelete(student.id)} className="delete" name="deleteStudent" href="#">x</a></td> */}
+                   <td><button
+                    className="btn btn-default btn-xs"
+                    onClick={ () => handleDelete(student.id) }>
+                    <span className="glyphicon glyphicon-remove" />
+                  </button></td> 
                 </tr>
             ))
           },
@@ -54,15 +53,15 @@ const handleDelete = function(id) {
     );
   };
 
-// const mapDispatchToProps = function (dispatch, ownProps) {
-//   return {
-//     handleDelete: function (evt) {
-//       dispatch(destroyStudent(evt));
-//     },
-//   };
-// }
+const mapDispatchToProps = function (dispatch, ownProps) {
+  return {
+    handleDelete(id) {
+      dispatch(removeStudent(id))
+    }
+  };
+}
 
-export default AllStudents;
+export default connect(null, mapDispatchToProps)(AllStudents);
 
 
 

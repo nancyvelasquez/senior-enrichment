@@ -62,7 +62,6 @@ const mapDispatchToProps = function (dispatch, ownProps) {
       const email = evt.target.email.value;
       const campusId = evt.target.campusName.value;
 
-      console.log('This is the name and image ', firstName, lastName, email, campusId)
       dispatch(postStudent({ firstName, lastName, email, campusId }))
     }
   };

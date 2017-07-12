@@ -8,6 +8,7 @@ const GET_CAMPUSES = "GET_CAMPUSES";
 const GET_STUDENTS = "GET_STUDENTS";
 const ENTER_NEW_CAMPUS = "ENTER_NEW_CAMPUS"
 const ENTER_NEW_STUDENT = "ENTER_NEW_STUDENT";
+export const DELETE_STUDENT = "DELETE_STUDENT"
 
 //Action Creators
 
@@ -40,6 +41,11 @@ export function enterNewStudent (student) {
         type: ENTER_NEW_STUDENT,
         student
     };
+    return action;
+}
+
+export function deleteStudent (id) {
+    const action = { type: DELETE_STUDENT, id };
     return action;
 }
 
@@ -85,6 +91,11 @@ export const postStudent = (student) => dispatch => {
     .catch(err => console.error('Failed to add student', err.message))
 }
 
+export const removeStudent = id => dispatch => {
+  axios.delete(`/api/students/${id}`)
+       .catch(err => console.error(`Removing student: ${id} unsuccesful`, err));
+};
+
 // Reducer
 function reducer (state = initialState, action) { // NOTE TRY ...ARRAY IF ARRAY
     switch (action.type) {
@@ -96,6 +107,9 @@ function reducer (state = initialState, action) { // NOTE TRY ...ARRAY IF ARRAY
             return Object.assign({}, state, { campusus: action.campus });
         case ENTER_NEW_STUDENT: 
             return Object.assign({}, state, { students: action.student });
+        case DELETE_STUDENT:
+            return students.filter(student => student.id !== action.id);
+
         default: 
             return state;
     }
