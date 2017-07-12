@@ -97,7 +97,6 @@ const mapDispatchToProps = function (dispatch, ownProps) {
       evt.preventDefault();
       const name = evt.target.campusName.value;
       const imageURL = evt.target.imageURL.value;
-      console.log('This is the name and image ', name, imageURL)
       dispatch(postCampus({ name, imageURL }))
     }
   };

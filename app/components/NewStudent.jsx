@@ -35,7 +35,7 @@ const NewStudent = (props) => {
                    {
                       campuses.map((campus) => {
                           return (
-                              <option key={campus.id} name="campusId">{campus.name}</option>
+                              <option key={campus.id} value={campus.id}>{campus.name}</option>
                           )}
                       )
                   } 
@@ -56,12 +56,14 @@ const mapDispatchToProps = function (dispatch, ownProps) {
   return {
     handleSubmit(evt) {
       evt.preventDefault();
+
       const firstName = evt.target.firstName.value;
       const lastName = evt.target.lastName.value;
       const email = evt.target.email.value;
-      const campusName = evt.target.campusName.value;
-      console.log('This is the name and image ', firstName, lastName, email, campusName)
-      dispatch(postStudent({ firstName, lastName, email, campusName }))
+      const campusId = evt.target.campusName.value;
+
+      console.log('This is the name and image ', firstName, lastName, email, campusId)
+      dispatch(postStudent({ firstName, lastName, email, campusId }))
     }
   };
 }

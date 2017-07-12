@@ -5,11 +5,8 @@ import AllCampuses from './AllCampuses';
 import { fetchCampuses } from '../store';
 
 function StatefulCampuses (props) {
-
   const { campuses } = props
-
     return <AllCampuses campuses={campuses} />
-    
 }
 
 const mapStateToProps = (state) => {
