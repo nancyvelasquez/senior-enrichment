@@ -1,6 +1,6 @@
 'use strict'
 import React, { Component } from 'react'
-import { BrowserRouter as Router, Route, Link, Switch } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Link, Switch, Redirect } from 'react-router-dom';
 import { render } from 'react-dom'
 // import { Provider } from 'react-redux'
 import axios from 'axios';
@@ -15,25 +15,24 @@ import StatefulStudents from './StatefulStudents';
 import StatefulCampuses from './StatefulCampuses';
 import NewStudent from './NewStudent';
 import NewCampus from './NewCampus';
-import store, { GOT_CAMPUSES_FROM_SERVER } from '.././store';
+import store, { fetchCampuses, fetchStudents } from '../store';
+import { connect } from "react-redux";
 
-// import { connect } from "react-redux";
-
-// import store from './store'   // importing store for redux
-// // import Root from './components/Root'
-
-
-// const RootContainer = connect or Provider ... 'react-redux' instead of export the
-// original main component, 
-// const RootContainer = connect((state) => ({pets: state.pets }))(Main)
-// export default RootContainer
-
-// export default 
 export default class Main extends Component {
 
-  render () {
+  // componentDidMount () {
+  //   const campusesThunk = GOT_CAMPUSES_FROM_SERVER();
+  //   store.dispatch(campusesThunk);
+  // }
 
-    console.log("We are here ", this.state)
+  componentDidMount () {
+    const campusesThunk = fetchCampuses();
+    const studentsThunk = fetchStudents();
+    store.dispatch(campusesThunk);
+    store.dispatch(studentsThunk);
+  }
+
+  render () {
     return (
       <Router>
         <div id="main" className="container-text-center">
@@ -57,6 +56,7 @@ export default class Main extends Component {
                       () => <NewCampus addCampus={this.addCampus} />
                     } />
                     <Route component={NotFound} />
+                    <Redirect to="/" />
                 </Switch>
             </div>
            {/*<Provider store={store}>*/}

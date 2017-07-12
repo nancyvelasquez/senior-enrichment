@@ -1,25 +1,30 @@
 import { createStore, applyMiddleware } from 'redux';
-// import rootReducer from './reducers';
-// import createLogger from 'redux-logger'; // https://github.com/evgenyrodionov/redux-logger
-// import thunkMiddleware from 'redux-thunk'; // https://github.com/gaearon/redux-thunk
+import axios from 'axios';
+import rootReducer from './reducers';
+import createLogger from 'redux-logger'; // https://github.com/evgenyrodionov/redux-logger
+import thunkMiddleware from 'redux-thunk'; // https://github.com/gaearon/redux-thunk
 
-// export default createStore(rootReducer, applyMiddleware(thunkMiddleware, createLogger()))
+const GET_CAMPUSES = "GET_CAMPUSES";
+const GET_STUDENTS = "GET_STUDENTS";
+const GET_STUDENT = "GET_STUDENT"
+const GET_CAMPUS = "GET_CAMPUS"
 
-const GOT_CAMPUSES_FROM_SERVER = "GOT_MESSAGES_FROM_SERVER";
-const GOT_STUDENTS_FROM_SERVER = "GOT_STUDENTS_FROM_SERVER";
+//Action Creators
 
-export function GOT_CAMPUSES_FROM_SERVER (campuses) {
-    return {
-        type: GOT_MESSAGES_FROM_SERVER,
-        campuses
-    }
+export function getCampuses (campuses) {
+    const action = {
+        type: GET_CAMPUSES,
+        campuses 
+    };
+    return action;
 }
 
-export function GOT_STUDENTS_FROM_SERVER (campuses) {
-    return {
-        type: GOT_STUDENTS_FROM_SERVER,
+export function getStudents (students) {
+    const action = {
+        type: GET_STUDENTS,
         students
-    }
+    };
+    return action;
 }
 
 //initial state
@@ -28,12 +33,36 @@ const initialState = {
     students: []
 }
 
+//Thunk
+
+export function fetchCampuses() {
+  return function thunk(dispatch) {
+     return axios.get('/api/campuses/')
+      .then(res => res.data)
+      .then(campuses => {
+        const action = getCampuses(campuses)
+        dispatch(action)
+      });
+  };
+}
+
+export function fetchStudents() {
+  return function thunk(dispatch) {
+     return axios.get('/api/students/')
+      .then(res => res.data)
+      .then(students => {
+        const action = getStudents(students)
+        dispatch(action)
+      });
+  };
+}
+
 // Reducer
-function reducer (state = initialState, action) {
+function reducer (state = initialState, action) { // NOTE TRY ...ARRAY IF ARRAY
     switch (action.type) {
-        case GOT_CAMPUSES_FROM_SERVER: 
+        case GET_CAMPUSES: 
             return Object.assign({}, state, { campuses: action.campuses });
-        case GOT_STUDENTS_FROM_SERVER: 
+        case GET_STUDENTS: 
             return Object.assign({}, state, { students: action.students });
         default: 
             return state;
@@ -42,5 +71,9 @@ function reducer (state = initialState, action) {
 
 //STORE 
 
-const store = createStore(reducer);
+const store = createStore(reducer,
+    rootReducer, applyMiddleware(thunkMiddleware, createLogger()));
+
 export default store;
+
+// export default createStore(rootReducer, applyMiddleware(thunkMiddleware, createLogger()))

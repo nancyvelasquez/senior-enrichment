@@ -1,43 +1,49 @@
 import React, { Component } from 'react';
-import axios from 'axios';
+import { connect } from "react-redux";
+import { withRouter } from 'react-router-dom';
 import AllCampuses from './AllCampuses';
-import store, { GOT_CAMPUSES_FROM_SERVER } from '../store';
+import { fetchCampuses } from '../store';
 
-export default class StatefulCampuses extends Component {
 
-  constructor () {
-    super();
-    this.state = {
-      store.getState();
-    };
-  }
+// export default class StatefulCampuses extends Component {
+function StatefulCampuses (props) {
 
-  componentDidMount () {
+  const { campuses } = props
 
-    this.unsubscribe = store.subscribe(() => {
-      this.setState(store.getState())
-    })
+  // constructor () {
+  //   super();
+  //   this.state = store.getState();
+  // }
 
-    axios.get('/api/campuses/')
-      .then(res => res.data)
-      .then(campuses => {
-        const gotCampusesAction = gotCampusesFromServer(campuses)
-        store.dispatch(gotCampusesAction)
-      });
-  }
+  // componentDidMount () {
+  //   this.unsubscribe = store.subscribe(() => {
+  //     this.setState(store.getState())
+  //   })
 
-  componentWillUnMount(){
-    this.unsubscribe();
-  }
+  //   axios.get('/api/campuses/')
+  //     .then(res => res.data)
+  //     .then(campuses => {
+  //       const gotCampusesAction = gotCampusesFromServer(campuses)
+  //       store.dispatch(gotCampusesAction)
+  //     });
+  // }
 
-  render () {
+  // componentWillUnMount(){
+  //   this.unsubscribe();
+  // }
 
-    console.log(this.state);
-
-    const campuses = this.state.campuses;
-
+  // render () {
+    // const campuses = this.state.campuses;
     return (
       <AllCampuses campuses={campuses} />
     );
-  }
+  // }
 }
+
+const mapStateToProps = function (state) {
+  return {
+    campuses: state.campuses
+  };
+}
+
+export default withRouter(connect(mapStateToProps)(StatefulCampuses));

@@ -1,42 +1,24 @@
 import React, { Component } from 'react';
-import axios from 'axios';
+import { connect } from "react-redux";
+import { withRouter } from 'react-router-dom';
 import AllStudents from './AllStudents';
-import store, { GOT_STUDENTS_FROM_SERVER } from '../store';
+import { fetchStudents } from '../store';
 
+// export default class StatefulStudents extends Component {
+function StatefulStudents (props) {
 
-export default class StatefulStudents extends Component {
+  const { students } = props
 
-  constructor () {
-    super();
-    this.state = {
-      store.getState();
-    };
-  }
-
-  componentDidMount () {
-    this.unsubscribe = store.subscribe(() => {
-      this.setState(store.getState())
-    })
-
-    axios.get('/api/students/')
-      .then(res => res.data)
-      .then(students => {
-        this.setState({ students })
-      });
-  }
-
-  componentWillUnMount(){
-    this.unsubscribe();
-  }
-
-  // constructor (props) {
-  //   super(props);
-  //   this.state = {
-  //     students: []
-  //   };
+  // constructor () {
+  //   super();
+  //   this.state = store.getState();
   // }
 
   // componentDidMount () {
+  //   this.unsubscribe = store.subscribe(() => {
+  //     this.setState(store.getState())
+  //   })
+
   //   axios.get('/api/students/')
   //     .then(res => res.data)
   //     .then(students => {
@@ -44,12 +26,25 @@ export default class StatefulStudents extends Component {
   //     });
   // }
 
-  render () {
+  // componentWillUnMount(){
+  //   this.unsubscribe();
+  // }
 
-    const students = this.state.students;
+  // render () {
+
+    // const students = this.state.students;
 
     return (
       <AllStudents students={students} />
     );
-  }
+  // }
 }
+
+
+const mapStateToProps = function (state) {
+  return {
+    students: state.students
+  };
+}
+
+export default withRouter(connect(mapStateToProps)(StatefulStudents));
