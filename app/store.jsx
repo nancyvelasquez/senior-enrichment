@@ -64,20 +64,24 @@ export function fetchStudents() {
   };
 }
 
-export function postCampus() {
-    return function thunk(dispatch) {
-        return axios.post('/api/campuses', {
-            name,
-            imageURL
-        })
-        .then(res => res.data)
-        .then(campus => {
-            const action = enterNewCampus(campus)
-            dispatch(action)
-        })
-    }
+export const postCampus = (campus) => dispatch => {
+    axios.post('/api/campuses', campus)
+    .then(res => dispatch(enterNewCampus(campus)))
+    .catch(err => console.error('Failed to add campus', err.message))
 }
-
+//     {
+//     return function thunk(dispatch) {
+//         return axios.post('/api/campuses', {
+//             name,
+//             imageURL
+//         })
+//         .then(res => res.data)
+//         .then(campus => {
+//             const action = enterNewCampus(campus)
+//             dispatch(action)
+//         })
+//     }
+// }
 
 // Reducer
 function reducer (state = initialState, action) { // NOTE TRY ...ARRAY IF ARRAY
