@@ -7,6 +7,7 @@ import thunkMiddleware from 'redux-thunk'; // https://github.com/gaearon/redux-t
 const GET_CAMPUSES = "GET_CAMPUSES";
 const GET_STUDENTS = "GET_STUDENTS";
 const ENTER_NEW_CAMPUS = "ENTER_NEW_CAMPUS"
+const ENTER_NEW_STUDENT = "ENTER_NEW_STUDENT";
 
 //Action Creators
 
@@ -30,6 +31,14 @@ export function enterNewCampus (campus) {
     const action = {
         type: ENTER_NEW_CAMPUS,
         campus
+    };
+    return action;
+}
+
+export function enterNewStudent (student) {
+    const action = {
+        type: ENTER_NEW_STUDENT,
+        student
     };
     return action;
 }
@@ -69,19 +78,12 @@ export const postCampus = (campus) => dispatch => {
     .then(res => dispatch(enterNewCampus(campus)))
     .catch(err => console.error('Failed to add campus', err.message))
 }
-//     {
-//     return function thunk(dispatch) {
-//         return axios.post('/api/campuses', {
-//             name,
-//             imageURL
-//         })
-//         .then(res => res.data)
-//         .then(campus => {
-//             const action = enterNewCampus(campus)
-//             dispatch(action)
-//         })
-//     }
-// }
+
+export const postStudent = (student) => dispatch => {
+    axios.post('/api/students', student)
+    .then(res => dispatch(enterNewStudent(student)))
+    .catch(err => console.error('Failed to add student', err.message))
+}
 
 // Reducer
 function reducer (state = initialState, action) { // NOTE TRY ...ARRAY IF ARRAY
@@ -92,6 +94,8 @@ function reducer (state = initialState, action) { // NOTE TRY ...ARRAY IF ARRAY
             return Object.assign({}, state, { students: action.students });
         case ENTER_NEW_CAMPUS:
             return Object.assign({}, state, { campusus: action.campus });
+        case ENTER_NEW_STUDENT: 
+            return Object.assign({}, state, { students: action.student });
         default: 
             return state;
     }

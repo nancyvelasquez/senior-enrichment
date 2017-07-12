@@ -3,8 +3,6 @@ import { Link } from 'react-router-dom';
 import { postCampus, enterNewCampus } from '../store';
 import { connect } from "react-redux";
 
-// import axios from 'axios';
-
 class NewCampus extends Component {
 
   // constructor(props) {
