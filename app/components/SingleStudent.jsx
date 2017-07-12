@@ -3,7 +3,6 @@ import { fetchCampuses, fetchStudents } from '../store';
 import { connect } from "react-redux";
 import { Route, Link, Switch } from 'react-router-dom';
 
-
 const SingleStudent = (props) => {
 
   const { student, campuses } = props;
