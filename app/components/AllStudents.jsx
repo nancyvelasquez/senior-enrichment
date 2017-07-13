@@ -104,8 +104,8 @@ const AllStudents = (props) => {
           {
             students && students.map(student => (
                 <tr key={student.id}>
-                  <td>{ `${student.firstName} ${student.lastName} `}</td>
-                  <td>{ student.email }</td>
+                  <td>{`${student.firstName} ${student.lastName}`}</td>
+                  <td>{student.email}</td>
                   <td>{ student.campusId ? studentCampusName(student.campusId) : 'No Campus Assigned' }</td> 
                   <td><Link to={`/students/${student.id}`}>View Student</Link></td>
                    <td><button

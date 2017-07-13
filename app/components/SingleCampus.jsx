@@ -4,6 +4,7 @@ import { connect } from "react-redux";
 import { fetchCampuses, fetchStudents, removeCampus } from '../store';
 import AllStudents from './AllStudents';
 
+
 const SingleCampus = (props) => {
 
   const { campus, students, handleDelete } = props;
