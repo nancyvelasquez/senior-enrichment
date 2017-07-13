@@ -23,12 +23,23 @@ import { connect } from "react-redux";
 
 export default class Main extends Component {
 
+  // constructor() {
+  //   super(); 
+  //   this.state = store.getState();
+  // }
+
   componentDidMount () {
+
+    // store.unsubscribe = store.subscribe(() => this.setState(store.getState())) 
     const campusesThunk = fetchCampuses();
     const studentsThunk = fetchStudents();
     store.dispatch(campusesThunk);
     store.dispatch(studentsThunk);
   }
+
+  // componentWillUnMount() {
+  //   this.unsubscribe();
+  // }
 
   render () {
     return (

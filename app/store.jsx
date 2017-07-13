@@ -165,7 +165,10 @@ function reducer (state = initialState, action) { // NOTE TRY ...ARRAY IF ARRAY
 
 /* ------------   STORE     ------------------ */
 
-const store = createStore(reducer,
-    rootReducer, applyMiddleware(thunkMiddleware, createLogger()));
+const store = createStore(
+    reducer,
+    rootReducer, 
+    applyMiddleware(thunkMiddleware, createLogger())
+);
 
 export default store;

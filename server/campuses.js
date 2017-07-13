@@ -46,7 +46,7 @@ router.get('/:campusId/students', (req, res, next) => {
 router.post('/', function (req, res, next) {
   Campus.create(req.body)
     .then((newCampus) => {
-      res.json({
+      res.status(201).json({
         message: 'Created successfully'
       });
     })

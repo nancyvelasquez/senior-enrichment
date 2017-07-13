@@ -32,7 +32,7 @@ router.param('studentId', function (req, res, next, id) {
 router.post('/', function (req, res, next) {
   Students.create(req.body)
     .then((newStudent) => {
-      res.json({
+      res.status(201).json({
         message: 'Created successfully'
       });
     })
@@ -77,6 +77,9 @@ router.delete('/:id', (req, res, next) => {
         where: {
             id: req.params.id
         }
+    })
+    .then(() => {     // added these three lines
+      res.sendStatus(204);
     })
     .catch(next)
 })

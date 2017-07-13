@@ -11,17 +11,14 @@ const Campus = db.define('campus', {
     unique: true
   },
   imageURL: {
-    type: Sequelize.TEXT,
+    type: Sequelize.STRING,
     allowNull: false
   }
 }, {
   instanceMethods: {
     getStudents: function () {
       return db.model('student').findAll({
-        // include: [{
-        //   model: db.model('campus'),
           where: { campusId: this.id } // makes this entire query an inner join
-        // }]
       });
     },
     toJSON: function () {
