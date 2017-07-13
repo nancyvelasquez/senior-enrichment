@@ -1,19 +1,21 @@
 import React, { Component } from 'react';
 import { Route, Link, Switch } from 'react-router-dom';
 import { connect } from "react-redux";
-import { fetchCampuses, fetchStudents } from '../store';
+import { fetchCampuses, fetchStudents, removeCampus } from '../store';
 import AllStudents from './AllStudents';
 
 const SingleCampus = (props) => {
 
-  const { campus, students } = props;
+  const { campus, students, handleDelete } = props;
   const campusStudents = students.filter(student => student.campusId === campus.id)
 
     return (
         <div>
             <h3>{ campus.name }</h3>
-            {/*<button type="button" onClick={() => props.handleDelete(campus.id)} name="campusName" type="reset" value="Reset">Delete Campus</button><br />
- <button type="button" onClick={() => props.deleteTask(props.Obj.slug)} className="btn">Delete</button>*/}
+            <button
+                className="btn btn-default btn-s"
+                onClick={ () => handleDelete(campus.id) }>
+            <span className="glyphicon glyphicon-remove" />   Delete Campus</button>
             <img src={ campus.imageURL } className="img-thumbnail" />
             <h4>Number of Students: { campusStudents.length }</h4>
 
@@ -33,24 +35,19 @@ const SingleCampus = (props) => {
 
 const mapStateToProps = (state, ownProps) => {
   const campusId = ownProps.match.params.campusId;
-
   return {
     campus: state.campuses.find(campus => campus.id === +campusId),
     students: state.students
   }
 }
 
-// const mapDispatchToProps = function (dispatch, ownProps) {
-//   return {
-//     handleDelete: function (evt) {
-//       dispatch(deleteCampus(evt.target.value));
-//     },
-//     handleSubmit: function (evt) {
-//       evt.preventDefault();
-//       dispatch(destroyCampus({ name: evt.target.campusName.value }))
-//     }
-//   };
-// }
+const mapDispatchToProps = function (dispatch, ownProps) {
+  return {
+    handleDelete(id) {
+      dispatch(removeCampus(id));
+    },
+  };
+}
 
-export default connect(mapStateToProps)(SingleCampus);
+export default connect(mapStateToProps, mapDispatchToProps)(SingleCampus);
 
