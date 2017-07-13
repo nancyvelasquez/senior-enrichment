@@ -4,7 +4,7 @@ import store, { fetchStudents, updateStudent, updateStudentThunk, fetchCampuses 
 import { connect } from "react-redux";
 import axios from 'axios';
 
-export default class EditStudent extends Component {
+class EditStudent extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -23,29 +23,29 @@ export default class EditStudent extends Component {
         this.handleCampusChange = this.handleCampusChange.bind(this);
 }
 
-componentDidMount() {
-    this.unsubscribe = store.subscribe(() => this.setState(store.getState));
-}
-
-componentWillUnmount() {
-    this.unsubscribe();
-}
-
 // componentDidMount() {
-//     const id = this.props.match.params.studentId;
-    
-//     axios.get(`/api/students/${+id}`)
-//        .then(res => res.data)
-//        .then(student => {
-
-//            this.setState({ 
-//                firstName: student.firstName, 
-//                lastName: student.lastName, 
-//                 email: student.email, 
-//                 campusId: student.campusId
-//             });
-//        })
+//     this.unsubscribe = store.subscribe(() => this.setState(store.getState));
 // }
+
+// componentWillUnmount() {
+//     this.unsubscribe();
+// }
+
+// // componentDidMount() {
+// //     const id = this.props.match.params.studentId;
+    
+// //     axios.get(`/api/students/${+id}`)
+// //        .then(res => res.data)
+// //        .then(student => {
+
+// //            this.setState({ 
+// //                firstName: student.firstName, 
+// //                lastName: student.lastName, 
+// //                 email: student.email, 
+// //                 campusId: student.campusId
+// //             });
+// //        })
+// // }
 
 handleFirstNameChange(event) {
         this.setState({
@@ -73,19 +73,35 @@ handleCampusChange(event) {
         });
     }
 
-handleSubmit(event) {
-    console.log('This is the state ', this.state)
-    event.preventDefault();
-      axios.put(`/api/students/${id}`, this.state)
-       .catch(err => console.error(`Updating student: ${student} unsuccessful`, err));
+// handleSubmit(event) { // call thunk 
+//     console.log('This is the state ', this.state)
+//     event.preventDefault();
 
-    this.setState({
-            firstName: "",
-            lastName: "",
-            email: "",
-            campusId: 0   
-    })
-}
+//     const thisStudent = this.state;
+//     console.log('This is the student yo ', thisStudent)
+//     // store.dispatch(updateStudentThunk( id, {firstName, lastName, email, campusId }));
+
+//     axios.put(`/api/students/${id}`, thisStudent)
+//        .then(res => dispatch(update(res.data)))
+//        .catch(err => console.error(`Updating student: ${student} unsuccessful`, err));
+// }
+
+// handleSubmit (evt) {
+//     evt.preventDefault();
+
+//     const { name, newMessageEntry } = this.state;
+//     const content = newMessageEntry;
+//     const { channelId } = this.props;
+
+//     store.dispatch(updateStudentThunk( id, {firstName, lastName, email, campusId }));
+//   }
+//     this.setState({
+//             firstName: "",
+//             lastName: "",
+//             email: "",
+//             campusId: 0   
+//     })
+// }
 
 // router.put('/:id', function (req, res, next) {
 //   Students.update(req.body, {
@@ -112,8 +128,7 @@ handleSubmit(event) {
 
 render() {
 
-    const id = Number(this.props.match.params.studentId);
-    console.log('These are hte props ', this.props)
+    // const id = Number(this.props.match.params.studentId);
     // const student = this.state.students.filter(student => student.id === id)
     // console.log('This is the student ', student)
     // const firstNameValueLength = this.state.firstName.length;
@@ -132,35 +147,32 @@ render() {
     // warning = "Name length exceeded";
     // }
 
-    // const { student, campuses } = this.props;
+    const { student, campuses, handleSubmit } = this.props;
 
     return (
-      <div id="form-container" onSubmit={this.handleSubmit}>
+      <div id="form-container" onSubmit={handleSubmit}>
          <form className="form-horizontal"> 
             <h2>Edit Student</h2>
             <div className="form-group">
                 <input className="form-control" 
                 type="text" name="firstName" 
-                placeholder={ this.state.firstName }
-                value={this.state.firstName}
+                placeholder={ student.firstName }
                 onChange={this.handleFirstNameChange}
                 /><br />
                 <input className="form-control" 
                 type="text" 
                 name="lastName" 
-                placeholder={ this.state.lastName }
-                value={this.state.lastName}
+                placeholder={ student.lastName }
                 onChange={this.handleLastNameChange}/>
                 <br />
                 <input className="form-control" 
                 type="text" 
                 name="email" 
-                placeholder={ this.state.email }
-                value={this.state.email}
+                placeholder={ student.email }
                 onChange={this.handleEmailChange}/>
                 <br />
                 <h2>Select New Campus: </h2>
-                  {/* <select name="campusName" value={this.state.campuses} onChange={this.handleCampusChange}>
+                   <select name="campusName" onChange={this.handleCampusChange}>
                     {
                       campuses.map((campus) => {
                           return (
@@ -168,7 +180,7 @@ render() {
                           )}
                       )
                   }  
-                  </select> */}
+                  </select> 
             </div>
         <button type="submit" className="btn btn-success">Submit</button>        
         </form>
@@ -183,29 +195,54 @@ render() {
 //     const { student } = this.state;
 // }
 
-// const mapStateToProps = (state, ownProps) => {
-//   const studentId = ownProps.match.params.studentId;
-//   return {
-//     student: state.students.find(student => student.id === +studentId),
-//     campuses: state.campuses
-//   }
-// }
+const mapStateToProps = (state, ownProps) => {
+  const studentId = ownProps.match.params.studentId;
+  return {
+    student: state.students.find(student => student.id === +studentId),
+    campuses: state.campuses
+  }
+}
+
+const mapDispatchToProps = function (dispatch, ownProps) {
+  return {
+    handleSubmit(evt) {
+      evt.preventDefault();
+
+        console.log('THESE ARE MY OWNPROPS ', ownProps.id)
+      const firstName = evt.target.firstName.value;
+      const lastName = evt.target.lastName.value;
+      const email = evt.target.email.value;
+      const campusId = evt.target.campusName.value;
+
+      dispatch(updateStudentThunk(ownProps.id, { firstName, lastName, email, campusId }))
+
+
+    //   dispatch(updateStudentThunk(ownProps.id, {  
+    //       firstName: ownProps.firstName, 
+    //       lastName: ownProps.lastName, 
+    //       email: ownProps.email, 
+    //       campusId: ownProps.campusId }))
+    // }
+  }
+}
+}
 
 // const mapDispatchToProps = function (dispatch, ownProps) {
-//     console.log('These are my ownProps ', ownProps)
 //   return {
 //     handleSubmit(evt) {
-//       dispatch(updateStudentThunk({ 
-//           id: ownProps.id, 
-//           firstName: ownProps.firstName, 
-//           lastName: ownProps.lastName, 
-//           email: ownProps.email, 
-//           campusId: ownProps.campusId }))
+//       evt.preventDefault();
+
+//       const firstName = evt.target.firstName.value;
+//       const lastName = evt.target.lastName.value;
+//       const email = evt.target.email.value;
+//       const campusId = evt.target.campusName.value;
+
+//       dispatch(postStudent({ firstName, lastName, email, campusId }))
 //     }
 //   };
 // }
 
-// export default connect(mapStateToProps)(EditStudent);
+export default connect(mapStateToProps, mapDispatchToProps)(EditStudent);
 
 
 

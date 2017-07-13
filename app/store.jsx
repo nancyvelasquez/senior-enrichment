@@ -129,6 +129,7 @@ export const updateCampusThunk = (id, campus) => dispatch => {
 };
 
 export const updateStudentThunk = (id, student) => dispatch => {
+    console.log('This is the id', id, student)
   axios.put(`/api/students/${id}`, student)
        .then(res => dispatch(update(res.data)))
        .catch(err => console.error(`Updating student: ${student} unsuccessful`, err));
