@@ -9,8 +9,12 @@ const AllStudents = (props) => {
   const { students, campuses, handleDelete } = props;
   
   const studentCampusName = (studentCampusId) => {
-      const findCampus = campuses.find(campus => campus.id === studentCampusId);
-      return findCampus.name
+      if(Array.isArray(campuses)) {
+        const findCampus = campuses.find(campus => campus.id === studentCampusId);
+        return findCampus.name
+      } else {
+        return campuses.name
+      } 
   }
 
     return (

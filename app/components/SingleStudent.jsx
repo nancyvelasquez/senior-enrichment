@@ -12,9 +12,12 @@ const SingleStudent = (props) => {
       <div className="student">
         <h3>{`${student.firstName} ${student.lastName} `}</h3>
           <p>Email: { student.email }</p>
-          <p>Campus Name: { campus.name }</p>
+          <p>Campus Name: { campus ? campus.name : " No Campus Assigned" }
+          </p>
         <ul className="nav nav-pills nav-justified">
-          <li><Link to={`/campuses/${campus.id}`}>NAVIGATE TO CAMPUS</Link></li>
+          <li>
+            { campus && <Link to={`/campuses/${campus.id}`}>NAVIGATE TO CAMPUS</Link> }
+          </li>
           <li><Link to={`/students/`}>BACK TO STUDENTS</Link></li>
         </ul>
       </div>

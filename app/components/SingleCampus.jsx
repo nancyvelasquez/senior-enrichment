@@ -25,7 +25,7 @@ const SingleCampus = (props) => {
             </ul>
             <Switch>
                 <Route path={`/campuses/${campus.id}/students`} render={() => (
-                <AllStudents students={ campusStudents } />
+                <AllStudents students={ campusStudents } campuses={ campus } />
                 )} />
                 <Route path={`/campuses`} />
             </Switch> 
