@@ -124,20 +124,19 @@ export const removeCampus = id => dispatch => {
 
 export const updateCampusThunk = (id, campus) => dispatch => {
   axios.put(`/api/campuses/${id}`, campus)
-       .then(res => dispatch(update(res.data)))
+       .then(res => dispatch(updateCampus(res.data)))
        .catch(err => console.error(`Updating campus: ${campus} unsuccessful`, err));
 };
 
 export const updateStudentThunk = (id, student) => dispatch => {
-    console.log('This is the id', id, student)
   axios.put(`/api/students/${id}`, student)
-       .then(res => dispatch(update(res.data)))
+       .then(res => dispatch(updateStudent(res.data)))
        .catch(err => console.error(`Updating student: ${student} unsuccessful`, err));
 };
 
 /* ------------   REDUCERS     ------------------ */
 
-function reducer (state = initialState, action) { // NOTE TRY ...ARRAY IF ARRAY
+function reducer (state = initialState, action) { 
     switch (action.type) {
         case GET_CAMPUSES: 
             return Object.assign({}, state, { campuses: action.campuses });
