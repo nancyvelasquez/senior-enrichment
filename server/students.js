@@ -58,7 +58,7 @@ router.get('/:studentId/campus', (req, res, next) => {
   .catch(next);
 });
 
-router.put('/:id', function (req, res, next) {
+router.put('/:id/edit-student', function (req, res, next) {
   Students.update(req.body, {
     where: {id: req.params.id},
     returning: true

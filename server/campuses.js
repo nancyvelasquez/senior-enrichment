@@ -53,7 +53,7 @@ router.post('/', function (req, res, next) {
     .catch(next);
 });
 
-router.put('/:id', function (req, res, next) {
+router.put(':id/edit-campus', function (req, res, next) {
   Campus.update(req.body, {
     where: {id: req.params.id},
     returning: true
