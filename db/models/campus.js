@@ -18,11 +18,10 @@ const Campus = db.define('campus', {
   instanceMethods: {
     getStudents: function () {
       return db.model('student').findAll({
-          where: { campusId: this.id } // makes this entire query an inner join
+          where: { campusId: this.id }
       });
     },
     toJSON: function () {
-      //Return a shallow clone so toJSON method of the nested models can be called recursively.
       return Object.assign({}, this.get());
     }
   }

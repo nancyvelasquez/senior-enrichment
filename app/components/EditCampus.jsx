@@ -1,119 +1,214 @@
 // import React, { Component } from 'react';
+// import { Link, Switch, Route } from 'react-router-dom';
+// import store, { updateCampusThunk, fetchCampuses } from '../store';
+// import { connect } from "react-redux";
+// import axios from 'axios';
+
+// class EditCampus extends Component {
+//     constructor(props) {
+//         super(props);
+//         this.state = {
+//             name: "",
+//             imageURL: ""
+//         }
+//     this.handleCampusNameChange = this.handleCampusNameChange.bind(this);
+//     this.handleImageUrlChange = this.handleImageUrlChange.bind(this);
+// }
+
+// handleCampusNameChange(event) {
+//     this.setState({
+//         name: event.target.value,
+//     });
+// }
+
+// handleImageUrlChange(event) {
+//     this.setState({
+//         imageURL: event.target.value,
+//     });
+// }
+
+// render() {
+
+//     const { campus, handleSubmit } = this.props;
+
+//     return (
+//       <div className="well">
+//         <form onSubmit={handleSubmit} className="form-horizontal">
+//           <fieldset>
+//             <legend>Edit Campus</legend>
+//             <div className="form-group">
+//               <label className="col-xs-2 control-label"></label>
+//               <div className="col-xs-8">
+//                 <input
+//                 className="form-control" 
+//                 type="text" 
+//                 onChange={this.handleCampusNameChange} 
+//                 name="campusName" 
+//                 placeholder="Campus Name"/><br />
+
+//                 <input
+//                 className="form-control" 
+//                 type="text" 
+//                 name="imageURL" 
+//                 onChange={this.handleImageUrlChange}
+//                 placeholder="Image URL"/><br />
+//               </div>
+//             </div>
+//             <img src={ campus.imageURL } className="img-thumbnail" />
+//             <div className="form-group">
+//               <div className="col-xs-10 col-xs-offset-2">
+//                 <button type="submit" className="btn btn-success" > 
+//                 Submit
+//                 </button>
+//               </div>
+//             </div>
+//           </fieldset>
+//         </form>
+//       </div>
+//     );
+//   }
+// }
+
+// const mapStateToProps = (state, ownProps) => {
+//   const campusId = ownProps.match.params.campusId;
+//   return {
+//     campus: state.campuses.find(campus => campus.id === +campusId),
+//   }
+// }
+
+// const mapDispatchToProps = function (dispatch, ownProps) {
+//         const campusId = Number(ownProps.match.params.campusId);
+
+//     return {
+//         handleSubmit(evt) {
+//         evt.preventDefault();
+//         const campusName = evt.target.campusName.value;
+//         const imageURL = evt.target.imageURL.value;
+
+//         dispatch(updateCampusThunk(campusId, { campusName, imageURL }))
+
+//         }
+//     }
+// }
+
+// export default connect(mapStateToProps, mapDispatchToProps)(EditCampus);
+
+
+
+
+
+
 import React, { Component } from 'react';
 import { Link, Switch, Route } from 'react-router-dom';
-import store, { fetchStudents, updateStudent, updateStudentThunk, fetchCampuses } from '../store';
+import store, { updateCampusThunk, fetchCampuses } from '../store';
 import { connect } from "react-redux";
-import axios from 'axios';
 
-class EditStudent extends Component {
+class EditCampus extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            firstName: "",
-            lastName: "",
-            email: "",
-            campusId: 0
+            name: "",
+            imageURL: ""
         }
-        this.handleFirstNameChange = this.handleFirstNameChange.bind(this);
-        this.handleLastNameChange = this.handleLastNameChange.bind(this);
-        this.handleEmailChange = this.handleEmailChange.bind(this);
-        this.handleCampusChange = this.handleCampusChange.bind(this);
-}
+        this.handleCampusNameChange = this.handleCampusNameChange.bind(this);
+        this.handleImageUrlChange = this.handleImageUrlChange.bind(this);
+        this.handleSubmit = this.handleSubmit.bind(this);
+    }
 
-
-handleFirstNameChange(event) {
+    handleCampusNameChange(event) {
         this.setState({
-            firstName: event.target.value,
-            dirty: true
-        });
-    }
- 
-handleLastNameChange(event) {
-            this.setState({
-            lastName: event.target.value,
-        });
-    }
- 
-handleEmailChange(event) {
-        this.setState({
-        email: event.target.value,
-    });
-    }
- 
-handleCampusChange(event) {
-        this.setState({
-        campusId: event.target.value,
+            name: event.target.value,
         });
     }
 
-render() {
+    handleImageUrlChange(event) {
+        this.setState({
+            imageURL: event.target.value,
+        });
+    }
 
-    const { student, campuses, handleSubmit } = this.props;
+    handleSubmit(event) {
+        event.preventDefault();
 
-    return (
-      <div id="form-container" onSubmit={handleSubmit}>
-         <form className="form-horizontal"> 
-            <h2>Edit Student</h2>
-            <div className="form-group">
-                <input className="form-control" 
-                type="text" name="firstName" 
-                placeholder={ student.firstName }
-                onChange={this.handleFirstNameChange}
-                /><br />
-                <input className="form-control" 
-                type="text" 
-                name="lastName" 
-                placeholder={ student.lastName }
-                onChange={this.handleLastNameChange}/>
-                <br />
-                <input className="form-control" 
-                type="text" 
-                name="email" 
-                placeholder={ student.email }
-                onChange={this.handleEmailChange}/>
-                <br />
-                <h2>Select New Campus: </h2>
-                   <select name="campusName" onChange={this.handleCampusChange}>
-                    {
-                      campuses.map((campus) => {
-                          return (
-                              <option key={campus.id} value={campus.id}>{campus.name}</option>
-                          )}
-                      )
-                  }  
-                  </select> 
+        const id = this.props.campus.id;
+        const state = {
+            name: this.state.name || this.props.campus.name,
+            imageURL: this.state.imageURL || this.props.campus.imageURL
+        }
+
+        this.props.updateCampusThunk(this.props.campus.id, state)
+        this.props.history.push('/')
+
+        this.setState({ name: "", imageURL: "" })
+    }
+
+    render() {
+
+        const { campus, handleSubmit } = this.props;
+
+        return (
+            <div className="well">
+                <form onSubmit={this.handleSubmit} className="form-horizontal">
+                    <fieldset>
+                        <legend>Edit Campus</legend>
+                        <div className="form-group">
+                            <label className="col-xs-2 control-label"></label>
+                            <div className="col-xs-8">
+                                <input
+                                    className="form-control"
+                                    type="text"
+                                    onChange={this.handleCampusNameChange}
+                                    name="campusName"
+                                    placeholder="Campus Name" /><br />
+
+                                <input
+                                    className="form-control"
+                                    type="text"
+                                    name="imageURL"
+                                    onChange={this.handleImageUrlChange}
+                                    placeholder="Image URL" /><br />
+                            </div>
+                        </div>
+                        <img src={campus.imageURL} className="img-thumbnail" />
+                        <div className="form-group">
+                            <div className="col-xs-10 col-xs-offset-2">
+                                <button type="submit" className="btn btn-success" >
+                                    Submit
+                </button>
+                            </div>
+                        </div>
+                    </fieldset>
+                </form>
             </div>
-        <button type="submit" className="btn btn-success">Submit</button>        
-        </form>
-      </div>
-    );
-  }
+        );
+    }
 }
+
 
 const mapStateToProps = (state, ownProps) => {
-  const studentId = ownProps.match.params.studentId;
-  return {
-    student: state.students.find(student => student.id === +studentId),
-    campuses: state.campuses
-  }
-}
-
-    const mapDispatchToProps = function (dispatch, ownProps) {
-        const studentId = Number(ownProps.match.params.studentId);
+    const campusId = ownProps.match.params.campusId;
     return {
-        handleSubmit(evt) {
-        evt.preventDefault();
-        const firstName = evt.target.firstName.value;
-        const lastName = evt.target.lastName.value;
-        const email = evt.target.email.value;
-        const campusId = evt.target.campusName.value;
-        console.log(campusId)
-
-        dispatch(updateStudentThunk(studentId, { firstName, lastName, email, campusId }))
-
-        }
+        campus: state.campuses.find(campus => campus.id === +campusId),
     }
 }
 
+const mapDispatch = {
+    updateCampusThunk
+}
 
-export default connect(mapStateToProps, mapDispatchToProps)(EditStudent);
+// const mapDispatchToProps = function (dispatch, ownProps) {
+//         const campusId = Number(ownProps.match.params.campusId);
+
+//     return {
+//         handleSubmit(evt) {
+//         evt.preventDefault();
+//         const campusName = evt.target.campusName.value;
+//         const imageURL = evt.target.imageURL.value;
+
+//         dispatch(updateCampusThunk(campusId, { campusName, imageURL }))
+
+//         }
+//     }
+// }
+
+export default connect(mapStateToProps, mapDispatch)(EditCampus);

@@ -48,6 +48,7 @@ export function deleteCampus (id) {
 }
 
 export function updateCampus (campus) {
+    console.log('In update campus ? ')
     const action = { type: UPDATE_CAMPUS, campus };
     return action;
 }
@@ -94,11 +95,11 @@ export const fetchCampus = (id) => dispatch => {
        .catch(err => console.error('Fetching campus unsuccessful', err));
 };
 
-export const fetchStudent = (id) => dispatch => {
-  axios.get(`/api/students/${id}`)
-       .then(res => dispatch(update(res.data)))
-       .catch(err => console.error('Fetching student unsuccessful', err));
-};
+// export const fetchStudent = (id) => dispatch => {
+//   axios.get(`/api/students/${id}`)
+//        .then(res => dispatch(update(res.data)))
+//        .catch(err => console.error('Fetching student unsuccessful', err));
+// };
 
 export const postCampus = (campus) => dispatch => {
     axios.post('/api/campuses', campus)
@@ -123,9 +124,9 @@ export const removeCampus = id => dispatch => {
 };
 
 export const updateCampusThunk = (id, campus) => dispatch => {
-  axios.put(`/api/campuses/${id}`, campus)
+    axios.put(`/api/campuses/${id}`, campus)
        .then(res => dispatch(updateCampus(res.data)))
-       .catch(err => console.error(`Updating campus: ${campus} unsuccessful`, err));
+       .catch(err => console.error(`Updating campus unsuccessful`, err));
 };
 
 export const updateStudentThunk = (id, student) => dispatch => {
@@ -151,6 +152,7 @@ function reducer (state = initialState, action) {
         case DELETE_CAMPUS:
             return campuses.filter(campus => campus.id !== action.id);
         case UPDATE_CAMPUS:
+        console.log('These are the arguments', arguments)
             return campuses.map(campus => (
                 action.campus.id === campus.id ? action.campus : campus
         ));

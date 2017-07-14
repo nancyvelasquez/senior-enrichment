@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Route, Link, Switch } from 'react-router-dom';
+import { Route, Link, NavLink, Switch } from 'react-router-dom';
 import { connect } from "react-redux";
 import { fetchCampuses, fetchStudents, removeCampus } from '../store';
 import AllStudents from './AllStudents';
@@ -13,6 +13,10 @@ const SingleCampus = (props) => {
     return (
         <div>
             <h3>{ campus.name }</h3>
+            <button className="btn btn-default btn-s"> 
+              <NavLink to={`/${campus.id}/edit-campus`} activeClassName="active">Edit Campus</NavLink> 
+            <span className="glyphicon glyphicon-pencil" /></button>
+
             <button
                 className="btn btn-default btn-s"
                 onClick={ () => handleDelete(campus.id) }>

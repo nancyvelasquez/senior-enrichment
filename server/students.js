@@ -24,7 +24,7 @@ router.param('studentId', function (req, res, next, id) {
     }
     req.student = student;
     next();
-    return null; // silences bluebird warning about promises inside of next
+    return null; 
   })
   .catch(next);
 });
@@ -40,12 +40,12 @@ router.post('/', function (req, res, next) {
 });
 
 // router.post('/', (req, res, next) => {
-//   Protein.findOrCreate({
+//   Student.findOrCreate({
 //     where: {
-//       name: req.body.name
+//       id: req.body.id
 //     }
 //   })
-//   .then(([newProtein]) => {
+//   .then(([newStudent]) => {
 //     return newProtein.createTaco({
 //       name: req.body.name,
 //       price: +req.body.price,
@@ -96,7 +96,6 @@ router.get('/:studentId/campus', (req, res, next) => {
 router.put('/:id', (req, res, next) => {
   Students.findById(req.params.id)
     .then(student => {
-      console.log('This is the body', req.body)
         const firstName = (req.body.firstName.length ? req.body.firstName : student.firstName);
         const lastName = (req.body.lastName.length ? req.body.lastName : student.lastName);
         const email = (req.body.email.length ? req.body.email : student.email);
@@ -113,7 +112,7 @@ router.delete('/:id', (req, res, next) => {
             id: req.params.id
         }
     })
-    .then(() => {     // added these three lines
+    .then(() => {     
       res.sendStatus(204);
     })
     .catch(next)

@@ -53,19 +53,34 @@ router.post('/', function (req, res, next) {
     .catch(next);
 });
 
-router.put(':id/edit-campus', function (req, res, next) {
-  Campus.update(req.body, {
-    where: {id: req.params.id},
-    returning: true
-  })
-  .then(function (results) {
-    console.log(results)
-    res.json({
-      message: 'Updated successfully',
-    });
-  })
-  .catch(next);
-});
+// router.put('/:id', function (req, res, next) {
+//   console.log('req.body ', req.body)
+//   Campus.update(req.body, {
+//     where: {id: req.params.id},
+//     returning: true
+//   })
+//   .then(function (results) {
+//     console.log(results)
+//     res.json({
+//       message: 'Updated successfully',
+//     });
+//   })
+//   .catch(next);
+// });
+
+
+//  look at how she did her put routes 
+
+router.put('/:id', (req, res, next) => {
+  Campus.findById(req.params.id)
+    .then(campus => {
+        const name = (req.body.name.length ? req.body.name : campus.name);
+        const imageURL = (req.body.imageURL.length ? req.body.imageURL : campus.imageURL);
+      return campus.update({ name, imageURL })
+    })
+    .then(updatedCampus => res.json(updatedCampus))
+    .catch(next);
+})
 
 router.delete('/:id', (req, res, next) => {
     return Campus.destroy({
@@ -82,4 +97,3 @@ router.delete('/:id', (req, res, next) => {
 })
 
 //make sure you do find or create at some point
-// need delete
