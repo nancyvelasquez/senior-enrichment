@@ -29,34 +29,31 @@ router.param('studentId', function (req, res, next, id) {
   .catch(next);
 });
 
-router.post('/', function (req, res, next) {
-  Students.create(req.body)
-    .then((newStudent) => {
-      res.status(201).json({
-        message: 'Created successfully'
-      });
-    })
-    .catch(next)
-});
+// router.post('/', function (req, res, next) {
+//   Students.create(req.body)
+//     .then((newStudent) => {
+//       res.status(201).json({
+//         message: 'Created successfully'
+//       });
+//     })
+//     .catch(next)
+// });
 
-// router.post('/', (req, res, next) => {
-//   Student.findOrCreate({
-//     where: {
-//       id: req.body.id
-//     }
-//   })
-//   .then(([newStudent]) => {
-//     return newProtein.createTaco({
-//       name: req.body.name,
-//       price: +req.body.price,
-//       tortilla: req.body.tortilla
-//     })
-//     .then(taco => {
-//       res.status(201).json(taco)
-//     })
-//   })
-//   .catch(next);
-// })
+router.post('/', (req, res, next) => {
+  Students.findOrCreate({
+    where: {
+      firstName: req.body.firstName,
+      lastName: req.body.lastName,
+      email: req.body.email,
+      campusId: req.body.campusId 
+    }
+  })
+  .then(([newStudent]) => {
+      res.status(201).json(newStudent)
+    // })
+  })
+  .catch(next);
+})
 
 router.get('/:id', (req, res, next) => {
   Students.findById(req.params.id)
@@ -79,19 +76,29 @@ router.get('/:studentId/campus', (req, res, next) => {
 
 // I know this is not kosher
 
+// router.put('/:id', (req, res, next) => {
+//   Students.findById(req.params.id)
+//     .then(student => {
+//         const firstName = (req.body.firstName.length ? req.body.firstName : student.firstName);
+//         const lastName = (req.body.lastName.length ? req.body.lastName : student.lastName);
+//         const email = (req.body.email.length ? req.body.email : student.email);
+//         const campusId = req.body.campusId;
+        
+//       return student.update({ firstName, lastName, email, campusId })
+//     })
+//     .then(updatedStudent => res.json(updatedStudent))
+//     .catch(next);
+// })
+
 router.put('/:id', (req, res, next) => {
   Students.findById(req.params.id)
     .then(student => {
-        const firstName = (req.body.firstName.length ? req.body.firstName : student.firstName);
-        const lastName = (req.body.lastName.length ? req.body.lastName : student.lastName);
-        const email = (req.body.email.length ? req.body.email : student.email);
-        const campusId = req.body.campusId;
-        
-      return student.update({ firstName, lastName, email, campusId })
+      return student.update(req.body)
     })
     .then(updatedStudent => res.json(updatedStudent))
     .catch(next);
 })
+
 
 router.delete('/:id', (req, res, next) => {
     return Students.destroy({
@@ -99,8 +106,9 @@ router.delete('/:id', (req, res, next) => {
             id: req.params.id
         }
     })
-    .then(() => {     
-      res.sendStatus(204);
+    .then(() => {    
+      console.log('In delete ', req.params.id) 
+      res.send(req.params.id);
     })
     .catch(next)
 })

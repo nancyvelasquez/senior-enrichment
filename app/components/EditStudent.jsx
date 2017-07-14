@@ -86,7 +86,7 @@ class EditStudent extends Component {
                         <br />
                         <h2>Select New Campus: </h2>
                         <label>
-                        <span class="custom-dropdown custom-dropdown--white">
+                        <span className="custom-dropdown custom-dropdown--white">
                         <select name="campusName" onChange={this.handleCampusChange} className="custom-dropdown__select custom-dropdown__select--white">       
                             {
                                 campuses.map((campus) => {

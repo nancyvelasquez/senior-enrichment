@@ -124,16 +124,18 @@ export const postStudent = (student) => dispatch => {
 
 export const removeStudent = id => dispatch => {
   axios.delete(`/api/students/${id}`)
+        .then(res => {
+            dispatch(deleteStudent(res.data))
+        })
        .catch(err => console.error(`Removing student: ${id} unsuccesful`, err));
 };
 
 export const removeCampus = id => dispatch => {
   axios.delete(`/api/campuses/${id}`)
-        .then(res => res.data)
-        .then(deletedCampus => {
-            dispatch(deleteCampus(deletedCampus))
+        .then(res => {
+            dispatch(deleteCampus(res.data))
         })
-       .catch(err => console.error(`Removing campus: ${id} unsuccesful`, err));
+       .catch(err => console.error(`Removing campus unsuccesful`, err));
 };
 
 export const updateCampusThunk = (id, campus) => dispatch => {
@@ -146,35 +148,40 @@ export const updateCampusThunk = (id, campus) => dispatch => {
 };
 
 export const updateStudentThunk = (id, student) => dispatch => {
-  axios.put(`/api/students/${id}`, student)
-       .then(res => dispatch(updateStudent(res.data)))
-       .catch(err => console.error(`Updating student: ${student} unsuccessful`, err));
+    axios.put(`/api/students/${id}`, student)
+       .then(res => res.data )
+       .then(updatedStudent => {
+           dispatch(updateCampus(updatedStudent))
+       })
+       .catch(err => console.error(`Updating student unsuccessful`, err));
 };
 
 /* ------------   REDUCERS     ------------------ */
 
 function reducer (state = initialState, action) { 
+    console.log('This is the state ', state.campuses)
+    console.log('This is the action ', action)
     switch (action.type) {
         case GET_CAMPUSES: 
             return Object.assign({}, state, { campuses: action.campuses });
         case GET_STUDENTS: 
             return Object.assign({}, state, { students: action.students });
         case ENTER_NEW_CAMPUS:
-            // return Object.assign({}, state, { campuses: action.campus });
-
             return Object.assign({}, state, { campuses: [...state.campuses, action.campus]});
         case ENTER_NEW_STUDENT: 
-            return Object.assign({}, state, { students: action.student });
+            return Object.assign({}, state, { students: [...state.students, action.student] });
         case DELETE_STUDENT:
-            return students.filter(student => student.id !== action.id);
+            // return students.filter(student => student.id !== action.id);
+            return state.students.filter(student => (student.id !== student.id));
         case DELETE_CAMPUS:
+            // return Object.assign({}, state, { campuses: [...state.campuses, action.campus]});
             return state.campuses.filter(campus => (campus.id !== action.id));
         case UPDATE_CAMPUS:
-            return campuses.map(campus => (
+            return state.campuses.map(campus => (
                 action.campus.id === campus.id ? action.campus : campus
         ));
         case UPDATE_STUDENT:
-            return students.map(student => (
+            return state.students.map(student => (
                 action.student.id === student.id ? action.student : student
         ));
         default: 

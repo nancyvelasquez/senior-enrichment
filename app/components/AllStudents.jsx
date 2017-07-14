@@ -68,8 +68,6 @@ const mapDispatchToProps = function (dispatch, ownProps) {
   return {
     handleDelete(id) {
       dispatch(removeStudent(id))
-      ownProps.history.push('/student')
-
     }
   };
 }

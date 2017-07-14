@@ -5,8 +5,6 @@ import { connect } from "react-redux";
 
 const NewCampus = (props) => {
 
-  // render() {
-
     const { handleSubmit, campuses } = props;
 
     return (

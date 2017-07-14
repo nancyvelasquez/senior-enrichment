@@ -50,7 +50,6 @@ const mapDispatchToProps = function (dispatch, ownProps) {
   return {
     handleSubmit(evt) {
       evt.preventDefault();
-        console.log('These are the arguments', arguments)
 
       const firstName = evt.target.firstName.value;
       const lastName = evt.target.lastName.value;
@@ -58,7 +57,6 @@ const mapDispatchToProps = function (dispatch, ownProps) {
       const campusId = evt.target.campusName.value;
 
       dispatch(postStudent({ firstName, lastName, email, campusId }))
-      ownProps.history.push('/')
     }
   };
 }
