@@ -139,44 +139,37 @@ class EditStudent extends Component {
     }
 
     handleFirstNameChange(event) {
-        this.setState({
-            firstName: event.target.value,
-        });
+        this.setState({ firstName: event.target.value });
     }
     
     handleLastNameChange(event) {
-        this.setState({
-            lastName: event.target.value,
-        });
+        this.setState({ lastName: event.target.value });
     }
     
     handleEmailChange(event) {
-        this.setState({
-            email: event.target.value,
-        });
+        this.setState({ email: event.target.value });
     }
     
     handleCampusChange(event) {
-        this.setState({
-            campusId: event.target.value,
-        });
+        this.setState({ campusId: event.target.value });
     }
-
 
     handleSubmit(event) {
         event.preventDefault();
 
-        console.log('this props ', this.props.student.id)
+        const id = this.props.match.params.studentId;
+        const student = this.props.students.filter(student => student.id === +id)
+ 
+        console.log('This is my student ', student)
 
-        const id = this.props.student.id;
         const state = {
-            firstName: this.state.firstName || this.props.student.firstName,
-            lastName: this.state.lastName || this.props.student.lastName,
-            email: this.state.email || this.props.student.email,
-            campusId: this.state.campusId || this.props.student.campusId
+            firstName: this.state.firstName || student[0].firstName,
+            lastName: this.state.lastName || student[0].lastName,
+            email: this.state.email || student[0].email,
+            campusId: this.state.campusId || student[0].campusId
         }
 
-        this.props.updateStudentThunk(this.props.student.id, state)
+        this.props.updateStudentThunk(id, state)
         this.props.history.push('/')
 
         this.setState({ firstName: "", lastName: "", email: "", campusId: 0 })
@@ -184,10 +177,10 @@ class EditStudent extends Component {
 
     render() {
 
-    const { students, campuses } = this.props;
+        const { students, campuses } = this.props;
 
-    const student = students.find(student => student.id === +this.props.match.params.studentId)
-    const campus = campuses.find(campus => student.campusId === campus.id)
+        const student = students.find(student => student.id === +this.props.match.params.studentId)
+        const campus = campuses.find(campus => student.campusId === campus.id)
 
     return (
       <div id="form-container" onSubmit={this.handleSubmit}>
