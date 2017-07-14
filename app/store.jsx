@@ -151,7 +151,7 @@ export const updateStudentThunk = (id, student) => dispatch => {
     axios.put(`/api/students/${id}`, student)
        .then(res => res.data )
        .then(updatedStudent => {
-           dispatch(updateCampus(updatedStudent))
+           dispatch(updateStudent(updatedStudent))
        })
        .catch(err => console.error(`Updating student unsuccessful`, err));
 };
@@ -159,6 +159,7 @@ export const updateStudentThunk = (id, student) => dispatch => {
 /* ------------   REDUCERS     ------------------ */
 
 function reducer (state = initialState, action) {
+    console.log('Thisi s the action ', action)
     switch (action.type) {
         case GET_CAMPUSES: 
             return Object.assign({}, state, { campuses: action.campuses });
@@ -175,13 +176,17 @@ function reducer (state = initialState, action) {
             const newCampusArray = state.campuses.filter(campus => (campus.id !== action.id));
             return Object.assign({}, state, { campuses: newCampusArray });
         case UPDATE_CAMPUS:
-            return state.campuses.map(campus => (
+            const updatedCampuses = state.campuses.map(campus => (
                 action.campus.id === campus.id ? action.campus : campus
         ));
+            return Object.assign({}, state, { campuses: updatedCampuses });
+
         case UPDATE_STUDENT:
-            return state.students.map(student => (
+            const updatedStudents = state.students.map(student => (
                 action.student.id === student.id ? action.student : student
         ));
+            return Object.assign({}, state, { students: updatedStudents });
+
         default: 
             return state;
     }
