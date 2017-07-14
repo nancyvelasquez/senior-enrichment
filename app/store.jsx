@@ -48,7 +48,7 @@ export function deleteCampus (id) {
 }
 
 export function updateCampus (campus) {
-    console.log('In update campus ? ')
+    console.log('In update campus ? ', campus)
     const action = { type: UPDATE_CAMPUS, campus };
     return action;
 }
@@ -130,8 +130,13 @@ export const removeCampus = id => dispatch => {
 };
 
 export const updateCampusThunk = (id, campus) => dispatch => {
+    console.log('This is the id ', id)
+    console.log('This is the campus', campus)
     axios.put(`/api/campuses/${id}`, campus)
-       .then(res => dispatch(updateCampus(res.data)))
+       .then(res => res.data )
+       .then(updatedCampus => {
+           dispatch(updateCampus(updatedCampus))
+       })
        .catch(err => console.error(`Updating campus unsuccessful`, err));
 };
 
@@ -158,7 +163,6 @@ function reducer (state = initialState, action) {
         case DELETE_CAMPUS:
             return campuses.filter(campus => campus.id !== action.id);
         case UPDATE_CAMPUS:
-        console.log('These are the arguments', arguments)
             return campuses.map(campus => (
                 action.campus.id === campus.id ? action.campus : campus
         ));

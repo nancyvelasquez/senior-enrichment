@@ -11,7 +11,7 @@ const AllCampuses = (props) => {
       <div className="row">
         {
           campuses && campuses.map(campus => (
-            <div className="col-xs-4" key={campus.id}>
+            <div className="col-xs-4" key={campus.id} height="750px">
               <Link className="thumbnail" to={`/campuses/${campus.id}`}>
                 <div className="caption">
                   <h5>
