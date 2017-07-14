@@ -3,7 +3,7 @@ import { BrowserRouter as Router, NavLink, Route, Link, Switch, Redirect } from 
 import { render } from 'react-dom'
 import { connect } from 'react-redux';
 
-export default class Navbar extends React.Component {
+export default class Navbar extends Component {
   constructor(props) {
     super(props);
   }

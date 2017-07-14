@@ -13,7 +13,6 @@ const AllStudents = (props) => {
       const findCampus = campuses.find(campus => campus.id === studentCampusId);
       return findCampus.name
     } else {
-      console.log("What is the id", studentCampusId)
       return campuses.name
     }
   }
