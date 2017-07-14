@@ -3,11 +3,11 @@ import { Link } from 'react-router-dom';
 import { postCampus, enterNewCampus } from '../store';
 import { connect } from "react-redux";
 
-class NewCampus extends Component {
+const NewCampus = (props) => {
 
-  render() {
+  // render() {
 
-    const { handleSubmit } = this.props;
+    const { handleSubmit, campuses } = props;
 
     return (
       <div className="well">
@@ -20,14 +20,13 @@ class NewCampus extends Component {
                 <input
                   className="form-control"
                   type="text"
-                  onChange={this.handleNameChange}
                   name="campusName"
                   placeholder="Campus Name" /><br />
 
                 <input
                   className="form-control"
                   type="text"
-                  name="imageURL"
+                  name="imageUrl"
                   placeholder="Image URL" /><br />
               </div>
             </div>
@@ -43,19 +42,29 @@ class NewCampus extends Component {
       </div>
     );
   }
+// }
+
+const mapStateToProps = (state, ownProps) => {  
+  return {
+    campuses: state.campuses,
+    students: state.students
+  }
 }
 
-const mapDispatchToProps = function (dispatch, ownProps) {
 
+const mapDispatchToProps = function (dispatch, ownProps) {
   return {
     handleSubmit(evt) {
+
       evt.preventDefault();
       const name = evt.target.campusName.value;
-      const imageURL = evt.target.imageURL.value;
-      dispatch(postCampus({ name, imageURL }))
+      const imageUrl = evt.target.imageUrl.value;
+      dispatch(postCampus({ name, imageUrl }))
+      // ownProps.history.push('/')
+
     }
   };
 }
 
-export default connect(null, mapDispatchToProps)(NewCampus);
+export default connect(mapStateToProps, mapDispatchToProps)(NewCampus);
 

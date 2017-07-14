@@ -43,15 +43,36 @@ router.get('/:campusId/students', (req, res, next) => {
   .catch(next);
 });
 
-router.post('/', function (req, res, next) {
-  Campus.create(req.body)
-    .then((newCampus) => {
-      res.status(201).json({
-        message: 'Created successfully'
-      });
-    })
-    .catch(next);
-});
+// router.post('/', function (req, res, next) {
+//   Campus.create(req.body)
+//     .then((newCampus) => {
+//       res.status(201).json({
+//         message: 'Created successfully'
+//       });
+//     })
+//     .catch(next);
+// });
+
+router.post('/', (req, res, next) => {
+  Campus.findOrCreate({
+    where: {
+      name: req.body.name,
+      imageURL: req.body.imageUrl 
+    }
+  })
+  .then(([newCampus]) => {
+    // console.log('This is the new campus in post ', newCampus)
+    // return newCampus.enterNewCampus({
+    //   name: req.body.name,
+    //   imageURL: req.body.imageURL,
+    // })
+    // .then(newCampus => {
+      res.status(201).json(newCampus)
+    // })
+  })
+  .catch(next);
+})
+
 
 // router.put('/:id', function (req, res, next) {
 //   console.log('req.body ', req.body)
@@ -69,8 +90,6 @@ router.post('/', function (req, res, next) {
 // });
 
 
-//  look at how she did her put routes 
-
 router.put('/:id', (req, res, next) => {
   Campus.findById(req.params.id)
     .then(campus => {
@@ -83,6 +102,7 @@ router.put('/:id', (req, res, next) => {
 })
 
 router.delete('/:id', (req, res, next) => {
+   console.log('This is the router delete ', req.params.id)
     return Campus.destroy({
         where: {
             id: req.params.id

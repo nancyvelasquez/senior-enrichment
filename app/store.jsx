@@ -28,8 +28,10 @@ export function getStudents (students) {
 }
 
 export function enterNewCampus (campus) {
-    const action = { type: ENTER_NEW_CAMPUS, campus };
-    return action;
+   return { 
+       type: ENTER_NEW_CAMPUS, 
+       campus 
+    };
 }
 
 export function enterNewStudent (student) {
@@ -48,7 +50,6 @@ export function deleteCampus (id) {
 }
 
 export function updateCampus (campus) {
-    console.log('In update campus ? ', campus)
     const action = { type: UPDATE_CAMPUS, campus };
     return action;
 }
@@ -101,13 +102,15 @@ export const fetchCampus = (id) => dispatch => {
 //        .catch(err => console.error('Fetching student unsuccessful', err));
 // };
 
-export const postCampus = (campus) => dispatch => {
-    axios.post('/api/campuses', campus)
-    .then(res => res.data)
-    .then(newCampus => { 
-        dispatch(enterNewCampus(newCampus));
-    })
+export const postCampus = (campus) => {
+    return function(dispatch) {
+        axios.post('/api/campuses', campus)
+        .then(res => res.data )
+        .then(newCampus => { 
+            dispatch(enterNewCampus(newCampus));
+        })
     .catch(err => console.error('Failed to add campus', err.message))
+    }
 }
 
 export const postStudent = (student) => dispatch => {
@@ -126,12 +129,14 @@ export const removeStudent = id => dispatch => {
 
 export const removeCampus = id => dispatch => {
   axios.delete(`/api/campuses/${id}`)
+        .then(res => res.data)
+        .then(deletedCampus => {
+            dispatch(deleteCampus(deletedCampus))
+        })
        .catch(err => console.error(`Removing campus: ${id} unsuccesful`, err));
 };
 
 export const updateCampusThunk = (id, campus) => dispatch => {
-    console.log('This is the id ', id)
-    console.log('This is the campus', campus)
     axios.put(`/api/campuses/${id}`, campus)
        .then(res => res.data )
        .then(updatedCampus => {
@@ -155,13 +160,15 @@ function reducer (state = initialState, action) {
         case GET_STUDENTS: 
             return Object.assign({}, state, { students: action.students });
         case ENTER_NEW_CAMPUS:
-            return Object.assign({}, state, { campusus: action.campus });
+            // return Object.assign({}, state, { campuses: action.campus });
+
+            return Object.assign({}, state, { campuses: [...state.campuses, action.campus]});
         case ENTER_NEW_STUDENT: 
             return Object.assign({}, state, { students: action.student });
         case DELETE_STUDENT:
             return students.filter(student => student.id !== action.id);
         case DELETE_CAMPUS:
-            return campuses.filter(campus => campus.id !== action.id);
+            return state.campuses.filter(campus => (campus.id !== action.id));
         case UPDATE_CAMPUS:
             return campuses.map(campus => (
                 action.campus.id === campus.id ? action.campus : campus

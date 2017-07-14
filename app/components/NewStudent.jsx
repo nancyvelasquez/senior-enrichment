@@ -19,7 +19,7 @@ const NewStudent = (props) => {
             <h2>Select a Campus: </h2>
             <div className="select-style">
             <label>
-            <span class="custom-dropdown custom-dropdown--white">
+            <span className="custom-dropdown custom-dropdown--white">
             <select name="campusName" className="custom-dropdown__select custom-dropdown__select--white">
               {
                 campuses.map((campus) => {
@@ -50,6 +50,7 @@ const mapDispatchToProps = function (dispatch, ownProps) {
   return {
     handleSubmit(evt) {
       evt.preventDefault();
+        console.log('These are the arguments', arguments)
 
       const firstName = evt.target.firstName.value;
       const lastName = evt.target.lastName.value;
@@ -57,6 +58,7 @@ const mapDispatchToProps = function (dispatch, ownProps) {
       const campusId = evt.target.campusName.value;
 
       dispatch(postStudent({ firstName, lastName, email, campusId }))
+      ownProps.history.push('/')
     }
   };
 }

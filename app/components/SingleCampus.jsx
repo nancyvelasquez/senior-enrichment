@@ -6,7 +6,10 @@ import AllStudents from './AllStudents';
 
 const SingleCampus = (props) => {
 
-  const { campus, students, handleDelete } = props;
+  const { campuses, students, handleDelete } = props;
+  const campusId = props.match.params.campusId;
+
+  const campus = campuses.find(campus => campus.id === +campusId);
   const campusStudents = students.filter(student => student.campusId === campus.id)
 
   return (
@@ -36,17 +39,18 @@ const SingleCampus = (props) => {
 }
 
 const mapStateToProps = (state, ownProps) => {
-  const campusId = ownProps.match.params.campusId;
   return {
-    campus: state.campuses.find(campus => campus.id === +campusId),
+    campuses: state.campuses,
     students: state.students
   }
 }
 
 const mapDispatchToProps = function (dispatch, ownProps) {
   return {
-    handleDelete(id) {
+    handleDelete() {
+      const id = ownProps.match.params.campusId;
       dispatch(removeCampus(id));
+      ownProps.history.push('/')
     },
   };
 }

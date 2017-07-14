@@ -11,12 +11,11 @@ const AllCampuses = (props) => {
       <div className="row">
         {
           campuses && campuses.map(campus => (
-            <div className="col-xs-4" key={campus.id} height="750px">
+            <div className="col-xs-4" key={campus.id}>
               <Link className="thumbnail" to={`/campuses/${campus.id}`}>
                 <div className="caption">
                   <h5>
                     <span>{campus.name}</span>
-                    <img src={campus.imageURL} className="img-thumbnail" />
                   </h5>
                 </div>
               </Link>
