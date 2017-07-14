@@ -18,20 +18,20 @@ const NewStudent = (props) => {
             <input className="form-control" type="text" name="email" placeholder="Email" /><br />
             <h2>Select a Campus: </h2>
             <div className="select-style">
-            <label>
-            <span className="custom-dropdown custom-dropdown--white">
-            <select name="campusName" className="custom-dropdown__select custom-dropdown__select--white">
-              {
-                campuses.map((campus) => {
-                  return (
-                    <option key={campus.id} value={campus.id}>{campus.name}</option>
-                  )
-                }
-                )
-              }
-            </select>
-            </span>
-            </label>
+              <label>
+                <span className="custom-dropdown custom-dropdown--white">
+                  <select name="campusName" className="custom-dropdown__select custom-dropdown__select--white">
+                    {
+                      campuses.map((campus) => {
+                        return (
+                          <option key={campus.id} value={campus.id}>{campus.name}</option>
+                        )
+                      }
+                      )
+                    }
+                  </select>
+                </span>
+              </label>
             </div>
           </div>
           <button type="submit" className="btn btn-success">Submit</button>
@@ -57,6 +57,7 @@ const mapDispatchToProps = function (dispatch, ownProps) {
       const campusId = evt.target.campusName.value;
 
       dispatch(postStudent({ firstName, lastName, email, campusId }))
+
     }
   };
 }

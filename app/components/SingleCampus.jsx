@@ -23,6 +23,7 @@ const SingleCampus = (props) => {
         className="btn btn-default btn-s"
         onClick={() => handleDelete(campus.id)}>
         <span className="glyphicon glyphicon-remove" />   Delete Campus</button>
+      <br></br>
       <img src={campus.imageURL} className="img-thumbnail" />
       <ul className="nav nav-pills nav-justified">
         <li><Link to={`/campuses/${campus.id}/students`}>LIST OF STUDENTS</Link></li>

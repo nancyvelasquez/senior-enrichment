@@ -4,9 +4,9 @@ import { withRouter } from 'react-router-dom';
 import AllStudents from './AllStudents';
 import { fetchStudents, fetchCampuses } from '../store';
 
-function StatefulStudents (props) {
+function StatefulStudents(props) {
   const { students, campuses } = props
-  return <AllStudents students={students} campuses={campuses}/>
+  return <AllStudents students={students} campuses={campuses} />
 }
 
 const mapStateToProps = (state) => {

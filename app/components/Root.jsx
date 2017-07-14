@@ -45,8 +45,6 @@ export default class Main extends Component {
           <Navbar />
           <div className="container text-center">
             <Switch>
-              <Route exact path="/" component={About} />
-              <Route exact path="/students" component={StatefulStudents} />
               <Route path="/:studentId/edit-student" component={EditStudent} />
               <Route path="/:campusId/edit-campus" component={EditCampus} />
               <Route path="/campuses/:campusId" component={SingleCampus} />
@@ -58,7 +56,9 @@ export default class Main extends Component {
               <Route exact path="/new-campus" render={
                 () => <NewCampus component={NewCampus} />
               } />
+              <Route exact path="/students" component={StatefulStudents} />
               <Route component={NotFound} />
+              <Route exact path="/" component={About} />
               <Redirect to="/" />
             </Switch>
           </div>

@@ -7,21 +7,15 @@ const Campus = db.model('campus');
 const Student = db.model('student');
 
 const campuses = [
-    {name: "Department of Drones", imageURL: "https://upload.wikimedia.org/wikipedia/en/4/44/MuseDronesCover.jpg"},
-    {name: "Department of Black Holes and Revelations", imageURL: "https://upload.wikimedia.org/wikipedia/en/c/c5/BlackHolesCover.jpg"},
-    {name: "Department of Origin of Symmetry", imageURL: "https://upload.wikimedia.org/wikipedia/en/3/3a/Museoriginofsymemtryalbumcover.jpg"},
-    {name: "Absolution", imageURL: "https://upload.wikimedia.org/wikipedia/en/b/b4/Muse_-_Absolution_Cover_UK.jpg"},
-    {name: "Revelations", imageURL: "https://upload.wikimedia.org/wikipedia/en/8/8a/Theresistance.jpg"},
-    {name: "Department of the 2nd Law", imageURL: "https://en.wikipedia.org/wiki/The_2nd_Law#/media/File:Muse_2nd_law.jpg"}
+    {name: "Chandler Hall", imageURL: "http://www.wm.edu/offices/residencelife/oncampus/residencehalls/upperlevel/chandler/chandlerphoto/chandler.jpg"},
+    {name: "James Blair Hall", imageURL: "https://www.wm.edu/about/visiting/campusmap/location/photos/141.jpg"},
+    {name: "School of Education", imageURL: "http://education.wm.edu/images/photosets/newfacility/photoset1.jpg"},
+    {name: "Morton Hall", imageURL: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSi6rKA968XcH_7ceXG5HL7X4Fq8wXoKTyxCBXilCdH6VQKMoN3fQ"},
+    {name: "Wren Chapel", imageURL: "http://www.insightintodiversity.com/wp-content/uploads/2016/04/Rear_view_of_the_Wren_Building_College_of_William__Mary_in_Williamsburg_Virginia_USA_2008-04-23-825x275.jpg"},
   ];
 
 const students = [
-    {firstName: "Nancy", lastName: "Velasquez", email: "fakenancy@gmail.com", campusId: 1},
-    {firstName: "Jose", lastName: "Velasquez", email: "fakenancy@gmail.com", campusId: 2},
-    {firstName: "Ulice", lastName: "Velasquez", email: "fakenancy@gmail.com", campusId: 3},
-    {firstName: "Javier", lastName: "Velasquez", email: "fakenancy@gmail.com", campusId: 4},
-    {firstName: "Delia", lastName: "Arias", email: "fakenancy@gmail.com", campusId: 5},
-    {firstName: "John", lastName: "Kendrick", email: "fakenancy@gmail.com", campusId: 6},
+    {firstName: "Nancy", lastName: "Velasquez", email: "fakenancy@gmail.com", campusId: 1}
 ];
 
 
