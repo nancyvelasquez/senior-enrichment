@@ -21,32 +21,6 @@ const Students = db.define('student', {
        isEmail: true
     }
   }
-}, {
-      // classMethods: {
-      //   associate: function(models) {
-      //     student.belongsTo(models.Campus);
-      //   },
-      // },
-  
-      // defaultScope: {
-      //   include: [Campus]
-      // },
-
-      // // getterMethods: {
-      // //   campusName: function() {
-      // //     return this.getCampus().then((campus) => {
-      // //       console.log(campus)
-      // //       return campus.campusName;
-      // //     })
-      // //   }
-      
-      // instanceMethods: {
-      //   getCampus: function() {
-      //     return db.models('campus').findOne({ 
-      //       where: { id: this.campusId}
-      //     })
-      //   }
-      // }
 });
 
 module.exports = Students;
