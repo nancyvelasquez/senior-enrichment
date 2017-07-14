@@ -158,9 +158,7 @@ export const updateStudentThunk = (id, student) => dispatch => {
 
 /* ------------   REDUCERS     ------------------ */
 
-function reducer (state = initialState, action) { 
-    console.log('This is the state ', state.campuses)
-    console.log('This is the action ', action)
+function reducer (state = initialState, action) {
     switch (action.type) {
         case GET_CAMPUSES: 
             return Object.assign({}, state, { campuses: action.campuses });
@@ -171,11 +169,11 @@ function reducer (state = initialState, action) {
         case ENTER_NEW_STUDENT: 
             return Object.assign({}, state, { students: [...state.students, action.student] });
         case DELETE_STUDENT:
-            // return students.filter(student => student.id !== action.id);
-            return state.students.filter(student => (student.id !== student.id));
+            const newStudentArray = state.students.filter(student => (student.id !== student.id));
+            return Object.assign({}, state, { students: newStudentArray });
         case DELETE_CAMPUS:
-            // return Object.assign({}, state, { campuses: [...state.campuses, action.campus]});
-            return state.campuses.filter(campus => (campus.id !== action.id));
+            const newCampusArray = state.campuses.filter(campus => (campus.id !== action.id));
+            return Object.assign({}, state, { campuses: newCampusArray });
         case UPDATE_CAMPUS:
             return state.campuses.map(campus => (
                 action.campus.id === campus.id ? action.campus : campus
