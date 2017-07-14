@@ -96,12 +96,6 @@ export const fetchCampus = (id) => dispatch => {
        .catch(err => console.error('Fetching campus unsuccessful', err));
 };
 
-// export const fetchStudent = (id) => dispatch => {
-//   axios.get(`/api/students/${id}`)
-//        .then(res => dispatch(update(res.data)))
-//        .catch(err => console.error('Fetching student unsuccessful', err));
-// };
-
 export const postCampus = (campus) => {
     return function(dispatch) {
         axios.post('/api/campuses', campus)
@@ -159,7 +153,6 @@ export const updateStudentThunk = (id, student) => dispatch => {
 /* ------------   REDUCERS     ------------------ */
 
 function reducer (state = initialState, action) {
-    console.log('Thisi s the action ', action)
     switch (action.type) {
         case GET_CAMPUSES: 
             return Object.assign({}, state, { campuses: action.campuses });
@@ -171,7 +164,6 @@ function reducer (state = initialState, action) {
             return Object.assign({}, state, { students: [...state.students, action.student] });
         case DELETE_STUDENT:
             const newStudentArray = state.students.filter(student => (student.id !== action.id));
-            console.log('This is the new students array ', newStudentArray)
             return Object.assign({}, state, { students: newStudentArray });
         case DELETE_CAMPUS:
             const newCampusArray = state.campuses.filter(campus => (campus.id !== action.id));
