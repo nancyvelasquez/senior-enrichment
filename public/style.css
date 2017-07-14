@@ -1,3 +1,77 @@
+.custom-dropdown--large {
+	font-size: 1.5em;
+}
+
+.custom-dropdown--small {
+	font-size: .7em;
+}
+
+.custom-dropdown__select{
+	font-size: inherit; /* inherit size from .custom-dropdown */
+	padding: .5em; /* add some space*/
+	margin: 0; /* remove default margins */
+}
+
+.custom-dropdown__select--white {
+	background-color:	white;
+	color: #444;    
+}
+
+	.custom-dropdown {
+		position: relative;
+		display: inline-block;
+		vertical-align: middle;
+	}
+
+	.custom-dropdown__select {
+		padding-right: 2.5em; /* accommodate with the pseudo elements for the dropdown arrow */
+		border: 0;
+		border-radius: 3px;
+		-webkit-appearance: none;
+		-moz-appearance: none;
+		appearance: none;    
+	}
+
+	.custom-dropdown::before,
+	.custom-dropdown::after {
+		content: "";
+		position: absolute;
+		pointer-events: none;
+	}
+
+	.custom-dropdown::after { /*  Custom dropdown arrow */
+		content: "\25BC";
+		height: 1em;
+		font-size: .625em;
+		line-height: 1;
+		right: 1.2em;
+		top: 50%; margin-top: -.5em;
+	}
+
+	.custom-dropdown::before { /*  Custom dropdown arrow cover */
+		width: 2em;
+		right: 0; top: 0; bottom: 0;
+		border-radius: 0 3px 3px 0;
+	}
+
+	.custom-dropdown__select[disabled] {
+		color: rgba(0,0,0,.3);
+	}
+
+	.custom-dropdown.custom-dropdown--disabled::after {
+		color: rgba(0,0,0,.1);
+	}
+
+	/* White dropdown style */
+	.custom-dropdown--white::before {
+		background-color: #fff;
+		border-left: 1px solid rgba(0,0,0,.1);
+	}
+
+	.custom-dropdown--white::after {
+		color: rgba(0,0,0,.9);
+	}
+
 body{
   text-rendering: optimizeLegibility;
   font-family: 'Raleway', sans-serif;
@@ -40,8 +114,10 @@ body{
   border-radius: 0;
   border-bottom: 1px dotted #777; }
   .navbar .navbar-nav a.active {
+    vertical-align: middle;
     background: transparent;
-    position: relative; }
+    position: relative; 
+    float: right; }
     .navbar .navbar-nav a.active:hover, .navbar .navbar-nav a.active:focus {
       background: transparent; }
     .navbar .navbar-nav a.active::before {
@@ -71,12 +147,6 @@ body{
 
 .btn_btn-success {
   margin-top: 20px;
-}
-
-@media (max-width: 600px) {
-    .carousel-caption {
-        display: none; /* Hide the carousel text when the screen is less than 600 pixels wide */
-    }
 }
 
 h3 {
@@ -134,7 +204,7 @@ h2 {
 }
 
 #form-container {
-  max-width: 350px;
+  max-width: 500px;
   margin: auto;
   padding: 0 1% 0 1%;
 }

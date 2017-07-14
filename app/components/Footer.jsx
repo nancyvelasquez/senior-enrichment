@@ -5,11 +5,11 @@ const Footer = () => {
 
   return (
     <footer className="text-center">
-        <a className="up-arrow" data-toggle="tooltip">
+      <a className="up-arrow" data-toggle="tooltip">
         <span className="glyphicon glyphicon-chevron-up"></span>
-        </a>
-        <br></br>
-        <p>Project by Nancy Velasquez</p> 
+      </a>
+      <br></br>
+      <p>Project by Nancy Velasquez</p>
     </footer>
   );
 }

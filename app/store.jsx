@@ -103,13 +103,19 @@ export const fetchCampus = (id) => dispatch => {
 
 export const postCampus = (campus) => dispatch => {
     axios.post('/api/campuses', campus)
-    .then(res => dispatch(enterNewCampus(campus)))
+    .then(res => res.data)
+    .then(newCampus => { 
+        dispatch(enterNewCampus(newCampus));
+    })
     .catch(err => console.error('Failed to add campus', err.message))
 }
 
 export const postStudent = (student) => dispatch => {
     axios.post('/api/students', student)
-    .then(res => dispatch(enterNewStudent(student)))
+    .then(res => res.data)
+    .then(newStudent => {
+        dispatch(enterNewStudent(newStudent))
+    })
     .catch(err => console.error('Failed to add student', err.message))
 }
 

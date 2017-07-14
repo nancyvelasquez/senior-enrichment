@@ -3,8 +3,6 @@ import { BrowserRouter as Router, NavLink, Route, Link, Switch, Redirect } from 
 import { render } from 'react-dom'
 import { connect } from 'react-redux';
 
-/* -----------------    COMPONENT     ------------------ */
-
 export default class Navbar extends React.Component {
   constructor(props) {
     super(props);
@@ -24,7 +22,6 @@ export default class Navbar extends React.Component {
               <span className="icon-bar" />
               <span className="icon-bar" />
             </button>
-            {/* <Link className="navbar-brand" to="/"><img src="/images/logo.png" /></Link> */}
           </div>
           <div className="collapse navbar-collapse">
             <ul className="nav navbar-nav">

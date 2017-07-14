@@ -5,47 +5,41 @@ import { connect } from "react-redux";
 
 const NewStudent = (props) => {
 
-    const { handleSubmit, campuses } = props;
+  const { handleSubmit, campuses } = props;
 
-    // const firstNameValueLength = this.state.firstNameValue.length;
-    // const lastNameValueLength = this.state.lastNameValue.length;
-    // const tooLong = firstNameValueLength > 16 || lastNameValueLength > 16;
-    // const tooShort = firstNameValueLength < 1 || lastNameValueLength < 1 && this.state.dirty;
-
-    // let warning;
-    // if(tooShort) {
-    //   warning = "Please enter a name";
-    // } else if (tooLong) {
-    //   warning = "Name length exceeded";
-    // }
-
-    return (
+  return (
+    <div className="well">
       <div id="form-container">
         <form onSubmit={handleSubmit} className="form-horizontal">
-            <h2>Create New Student</h2>
-            {/* {
-              warning && <div className="alert alert-warning">{ warning }</div>
-            } */}
-            <div className="form-group">
-                <input className="form-control" type="text" name="firstName" placeholder="First Name"/><br />
-                <input className="form-control" type="text" name="lastName" placeholder="Last Name"/><br />
-                <input className="form-control" type="text" name="email" placeholder="Email"/><br />
-                <h2>Select a Campus: </h2>
-                  <select name="campusName">
-                   {
-                      campuses.map((campus) => {
-                          return (
-                              <option key={campus.id} value={campus.id}>{campus.name}</option>
-                          )}
-                      )
-                  } 
-                  </select>
+          <h2>Create New Student</h2>
+          <div className="form-group">
+            <input className="form-control" type="text" name="firstName" placeholder="First Name" /><br />
+            <input className="form-control" type="text" name="lastName" placeholder="Last Name" /><br />
+            <input className="form-control" type="text" name="email" placeholder="Email" /><br />
+            <h2>Select a Campus: </h2>
+            <div className="select-style">
+            <label>
+            <span class="custom-dropdown custom-dropdown--white">
+            <select name="campusName" className="custom-dropdown__select custom-dropdown__select--white">
+              {
+                campuses.map((campus) => {
+                  return (
+                    <option key={campus.id} value={campus.id}>{campus.name}</option>
+                  )
+                }
+                )
+              }
+            </select>
+            </span>
+            </label>
             </div>
-            <button type="submit" className="btn btn-success">Submit</button>
+          </div>
+          <button type="submit" className="btn btn-success">Submit</button>
         </form>
       </div>
-    );
-  }
+    </div>
+  );
+}
 
 const mapStateToProps = (state) => {
   return { campuses: state.campuses };
@@ -68,5 +62,3 @@ const mapDispatchToProps = function (dispatch, ownProps) {
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(NewStudent);
-
-// disabled={tooLong || tooShort}
