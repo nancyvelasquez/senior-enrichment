@@ -170,7 +170,8 @@ function reducer (state = initialState, action) {
         case ENTER_NEW_STUDENT: 
             return Object.assign({}, state, { students: [...state.students, action.student] });
         case DELETE_STUDENT:
-            const newStudentArray = state.students.filter(student => (student.id !== student.id));
+            const newStudentArray = state.students.filter(student => (student.id !== action.id));
+            console.log('This is the new students array ', newStudentArray)
             return Object.assign({}, state, { students: newStudentArray });
         case DELETE_CAMPUS:
             const newCampusArray = state.campuses.filter(campus => (campus.id !== action.id));
